@@ -1,16 +1,24 @@
 {
   "name": "@lepsios/crm-audit-log",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Framework-agnostic contracts for CRM audit log modules",
   "license": "UNLICENSED",
   "files": [
+    "examples/",
     "src/"
   ],
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "import": "./src/index.ts"
+    },
+    "./vue": {
+      "types": "./src/use-crm-audit-log.ts",
+      "import": "./src/use-crm-audit-log.ts"
     }
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
   }
 }
