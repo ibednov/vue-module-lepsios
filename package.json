@@ -1,0 +1,20 @@
+{
+  "name": "@alexbednov/crm-modules-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Copyable Vue CRM frontend structure and shared UI model contracts",
+  "workspaces": [
+    "packages/*"
+  ],
+  "exports": {
+    "./contracts": "./packages/contracts/src/index.ts"
+  },
+  "files": [
+    "AGENTS.md",
+    "docs/",
+    "packages/contracts/src/",
+    "schemas/",
+    "templates/"
+  ]
+}
