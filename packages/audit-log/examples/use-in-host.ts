@@ -1,29 +1,22 @@
 import { useCRMAuditLog } from '../src/use-crm-audit-log'
-import { createWishimiAuditAdapter } from './wishimi-adapter'
-import type { WishimiAuditService } from './wishimi-adapter'
+import type { CRMAuditLogSource } from '../src/index'
 
-/** Called from the host page's setup(); the service wraps its existing auth-aware API client. */
-export function setupWishimiAuditLog(service: WishimiAuditService) {
-  const audit = useCRMAuditLog(createWishimiAuditAdapter(service), { pageSize: 50 })
+/** Pass the host's authenticated client; its response follows go-lepsios/audit. */
+export function setupAuditLog(source: CRMAuditLogSource) {
+  const audit = useCRMAuditLog(source, { pageSize: 50 })
   void audit.refresh()
 
   return {
     audit,
-    applyActorFilter: (actorKind: string) => audit.setFilters({ actorKind: actorKind || undefined }),
+    filterByActor: (actor_kind: string) => audit.setFilters({ actor_kind: actor_kind || undefined }),
     openPage: (page: number) => audit.setPage(page),
   }
 }
 
-export const wishimiAuditFilters = [
-  { key: 'actorKind', label: 'Actor kind' },
-  { key: 'action', label: 'Event type', placeholder: 'admin.user.*' },
-  { key: 'actorId', label: 'Actor ID' },
-  { key: 'targetType', label: 'Target type' },
-  { key: 'targetId', label: 'Target ID' },
-] as const
-
-export const conciergeAuditFilters = [
-  { key: 'from', label: 'From', type: 'date' },
-  { key: 'to', label: 'To', type: 'date' },
-  { key: 'action', label: 'Action' },
+export const auditLogFilters = [
+  { key: 'actor_kind', label: 'Actor kind' },
+  { key: 'type', label: 'Event type', placeholder: 'admin.user.*' },
+  { key: 'actor_id', label: 'Actor ID' },
+  { key: 'target_type', label: 'Target type' },
+  { key: 'target_id', label: 'Target ID' },
 ] as const

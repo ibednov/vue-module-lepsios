@@ -4,11 +4,11 @@ import { computed, h, onMounted, reactive } from 'vue'
 import { CrmDataTable } from '@lepsios/vue'
 import { Button } from '@lepsios/vue/components/ui/button'
 import { Input } from '@lepsios/vue/components/ui/input'
-import type { CRMAuditLogAdapter, CRMAuditLogEvent, CRMAuditLogFilterField, CRMAuditLogLabels, CRMAuditLogQuery } from './index'
+import type { CRMAuditLogEvent, CRMAuditLogFilterField, CRMAuditLogLabels, CRMAuditLogQuery, CRMAuditLogSource } from './index'
 import { useCRMAuditLog } from './use-crm-audit-log'
 
 const props = withDefaults(defineProps<{
-  adapter: CRMAuditLogAdapter
+  source: CRMAuditLogSource
   labels: CRMAuditLogLabels
   filterFields: CRMAuditLogFilterField[]
   pageSize?: number
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
   locale: undefined,
 })
 
-const { items, total, loading, error, query, refresh, setFilters, setPage } = useCRMAuditLog(props.adapter, { pageSize: props.pageSize })
+const { items, total, loading, error, query, refresh, setFilters, setPage } = useCRMAuditLog(props.source, { pageSize: props.pageSize })
 const filterValues = reactive<Record<string, string>>({})
 
 const pagination = computed(() => ({
@@ -35,22 +35,22 @@ const formatDate = (value: string) => new Intl.DateTimeFormat(props.locale, {
 
 const columns = computed<ColumnDef<CRMAuditLogEvent, unknown>[]>(() => [
   {
-    accessorKey: 'occurredAt',
+    accessorKey: 'occurred_at',
     header: props.labels.time,
-    cell: ({ row }) => h('span', { class: 'text-xs text-muted-foreground' }, formatDate(row.original.occurredAt)),
+    cell: ({ row }) => h('span', { class: 'text-xs text-muted-foreground' }, formatDate(row.original.occurred_at)),
   },
-  { accessorKey: 'action', header: props.labels.action, cell: ({ row }) => h('span', { class: 'font-mono text-xs' }, row.original.action) },
+  { accessorKey: 'type', header: props.labels.action, cell: ({ row }) => h('span', { class: 'font-mono text-xs' }, row.original.type) },
   {
     id: 'actor',
-    accessorFn: event => event.actor?.name || event.actor?.email || event.actor?.id || event.actor?.kind || '',
+    accessorFn: event => event.actor_email || event.actor_id || event.actor_kind,
     header: props.labels.actor,
-    cell: ({ row }) => h('span', { class: 'text-sm' }, row.original.actor?.name || row.original.actor?.email || row.original.actor?.id || row.original.actor?.kind || '—'),
+    cell: ({ row }) => h('span', { class: 'text-sm' }, row.original.actor_email || row.original.actor_id || row.original.actor_kind || '—'),
   },
   {
     id: 'target',
-    accessorFn: event => [event.target?.type, event.target?.label, event.target?.id].filter(Boolean).join(' '),
+    accessorFn: event => `${event.target_type} ${event.target_id}`,
     header: props.labels.target,
-    cell: ({ row }) => h('span', { class: 'text-sm' }, [row.original.target?.type, row.original.target?.label || row.original.target?.id].filter(Boolean).join(' · ') || '—'),
+    cell: ({ row }) => h('span', { class: 'text-sm' }, [row.original.target_type, row.original.target_id].filter(Boolean).join(' · ') || '—'),
   },
 ])
 

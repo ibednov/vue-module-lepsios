@@ -1,50 +1,53 @@
 export type CRMAuditLogId = string
 
-export interface CRMAuditLogActor {
-  id?: CRMAuditLogId | null
-  kind?: string
-  name?: string
-  email?: string
-}
-
-export interface CRMAuditLogTarget {
-  type: string
-  id?: CRMAuditLogId | null
-  label?: string
-}
-
-/** Product-neutral view of one immutable event from a host's audit API. */
+/** Wire event defined by go-lepsios/audit's shared HTTP contract. */
 export interface CRMAuditLogEvent<TPayload = unknown> {
   id: CRMAuditLogId
-  action: string
-  actor?: CRMAuditLogActor | null
-  target?: CRMAuditLogTarget | null
-  payload?: TPayload
-  occurredAt: string
+  type: string
+  actor_id: string
+  actor_kind: string
+  actor_email?: string
+  target_type: string
+  target_id: string
+  payload: TPayload
+  occurred_at: string
 }
 
+/** UI state uses page numbering; the shared API contract uses limit/offset. */
 export interface CRMAuditLogQuery {
   page: number
   pageSize: number
   from?: string
   to?: string
-  action?: string
-  actorKind?: string
-  actorId?: CRMAuditLogId
-  targetType?: string
-  targetId?: CRMAuditLogId
+  type?: string
+  actor_kind?: string
+  actor_id?: CRMAuditLogId
+  target_type?: string
+  target_id?: CRMAuditLogId
 }
 
-export interface CRMAuditLogPage<TPayload = unknown> {
+export interface CRMAuditLogListQuery {
+  limit: number
+  offset: number
+  from?: string
+  to?: string
+  type?: string
+  actor_kind?: string
+  actor_id?: CRMAuditLogId
+  target_type?: string
+  target_id?: CRMAuditLogId
+}
+
+export interface CRMAuditLogListData<TPayload = unknown> {
   items: CRMAuditLogEvent<TPayload>[]
-  page: number
-  pageSize: number
   total: number
+  limit: number
+  offset: number
 }
 
-/** Implement in the host so authentication, endpoint details, and DTO mapping stay product-owned. */
-export interface CRMAuditLogAdapter<TPayload = unknown> {
-  list(query: CRMAuditLogQuery): Promise<CRMAuditLogPage<TPayload>>
+/** Host supplies its authenticated API call; returned data follows go-lepsios/audit. */
+export interface CRMAuditLogSource<TPayload = unknown> {
+  list(query: CRMAuditLogListQuery): Promise<CRMAuditLogListData<TPayload>>
 }
 
 /** Host-provided authorization check; UI visibility does not replace server-side authorization. */

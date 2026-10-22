@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Align event and list query types with the `go-lepsios/audit` HTTP contract.
+- Replace product-specific DTO adapters with one authenticated host API source.
+- Use string event IDs and the shared `type/actor_*/target_*/occurred_at` fields.
+
 ## 0.3.0
 
 - Add `CrmAuditLogView.vue`, a reusable audit list and filter UI composed from `vue-lepsios` components.

@@ -1,5 +1,5 @@
 import { readonly, ref } from 'vue'
-import type { CRMAuditLogAdapter, CRMAuditLogEvent, CRMAuditLogQuery } from './index'
+import type { CRMAuditLogEvent, CRMAuditLogQuery, CRMAuditLogSource } from './index'
 
 export interface UseCRMAuditLogOptions {
   pageSize?: number
@@ -8,7 +8,7 @@ export interface UseCRMAuditLogOptions {
 
 /** Shared loading, filtering, paging, and request-race handling for an audit-log screen. */
 export function useCRMAuditLog<TPayload = unknown>(
-  adapter: CRMAuditLogAdapter<TPayload>,
+  source: CRMAuditLogSource<TPayload>,
   options: UseCRMAuditLogOptions = {},
 ) {
   const pageSize = options.pageSize ?? 50
@@ -29,13 +29,18 @@ export function useCRMAuditLog<TPayload = unknown>(
     error.value = null
 
     try {
-      const result = await adapter.list({ ...query.value })
+      const { page, pageSize, ...filters } = query.value
+      const result = await source.list({
+        ...filters,
+        limit: pageSize,
+        offset: (page - 1) * pageSize,
+      })
       if (sequence !== requestSequence)
         return
       items.value = result.items
       total.value = result.total
-      query.value.page = result.page
-      query.value.pageSize = result.pageSize
+      query.value.page = result.limit > 0 ? Math.floor(result.offset / result.limit) + 1 : 1
+      query.value.pageSize = result.limit
     }
     catch (cause) {
       if (sequence !== requestSequence)
