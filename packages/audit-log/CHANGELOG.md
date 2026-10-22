@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+- Add `CrmAuditLogView.vue`, a reusable audit list and filter UI composed from `vue-lepsios` components.
+- Add localized-label contract for the view.
+
 ## 0.2.0
 
 - Add `useCRMAuditLog` for shared paging, filters, loading/error state, and stale-request protection.

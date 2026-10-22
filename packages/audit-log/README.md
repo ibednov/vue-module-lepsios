@@ -6,6 +6,7 @@ Reusable CRM feature logic and contracts for a global audit log. The module owns
 
 - `.` exports event, actor, target, query, page, adapter, and access contracts.
 - `./vue` exports `useCRMAuditLog`, the shared Vue composable for the list feature.
+- `./component` exports `CrmAuditLogView.vue`, a ready list and filter view built with table and form controls from `vue-lepsios`.
 - `examples/` contains concrete Concierge and Wishimi API mappings and host setup.
 
 ## Host integration
@@ -22,7 +23,27 @@ await audit.setFilters({ actorKind: 'admin' })
 await audit.setPage(2)
 ```
 
-Then the page binds `audit.items.value`, `audit.loading.value`, and `audit.error.value` to `CrmDataTable` and the host's localized labels. The table columns and text remain product-owned. See [the host setup example](./examples/use-in-host.ts).
+Or use the included view and supply the filters and localized strings supported by that API:
+
+```vue
+<script setup lang="ts">
+import { CrmAuditLogView } from '@lepsios/crm-audit-log/component'
+import { auditAdapter } from './audit-adapter'
+
+const filterFields = [
+  { key: 'actorKind', label: 'Actor kind' },
+  { key: 'action', label: 'Event type' },
+  { key: 'actorId', label: 'Actor ID' },
+]
+const labels = { time: 'Time', action: 'Action', actor: 'Actor', target: 'Target', applyFilters: 'Apply', loading: 'Loading', empty: 'No events', previousPage: 'Previous page', nextPage: 'Next page' }
+</script>
+
+<template>
+  <CrmAuditLogView :adapter="auditAdapter" :filter-fields="filterFields" :labels="labels" />
+</template>
+```
+
+The table and inputs come from `vue-lepsios`; the host provides auth-aware API calls, supported filters, page title, translations, and permission gating. See the [composable setup](./examples/use-in-host.ts) and both adapter examples.
 
 The [Concierge adapter](./examples/concierge-adapter.ts) maps its `page/limit` API and `action/entity_type/entity_id/metadata/created_at` DTO. The [Wishimi adapter](./examples/wishimi-adapter.ts) converts `page` to `offset` and maps `type/target_type/target_id/payload/occurred_at`. Both preserve their authenticated host service rather than moving credentials or endpoint rules into the package.
 

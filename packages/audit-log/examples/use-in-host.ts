@@ -13,3 +13,17 @@ export function setupWishimiAuditLog(service: WishimiAuditService) {
     openPage: (page: number) => audit.setPage(page),
   }
 }
+
+export const wishimiAuditFilters = [
+  { key: 'actorKind', label: 'Actor kind' },
+  { key: 'action', label: 'Event type', placeholder: 'admin.user.*' },
+  { key: 'actorId', label: 'Actor ID' },
+  { key: 'targetType', label: 'Target type' },
+  { key: 'targetId', label: 'Target ID' },
+] as const
+
+export const conciergeAuditFilters = [
+  { key: 'from', label: 'From', type: 'date' },
+  { key: 'to', label: 'To', type: 'date' },
+  { key: 'action', label: 'Action' },
+] as const

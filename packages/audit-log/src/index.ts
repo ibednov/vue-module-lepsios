@@ -51,3 +51,22 @@ export interface CRMAuditLogAdapter<TPayload = unknown> {
 export interface CRMAuditLogAccess {
   canRead(): boolean
 }
+
+export interface CRMAuditLogLabels {
+  time: string
+  action: string
+  actor: string
+  target: string
+  applyFilters: string
+  loading: string
+  empty: string
+  previousPage: string
+  nextPage: string
+}
+
+export interface CRMAuditLogFilterField {
+  key: keyof Omit<CRMAuditLogQuery, 'page' | 'pageSize'>
+  label: string
+  type?: 'date' | 'text'
+  placeholder?: string
+}
