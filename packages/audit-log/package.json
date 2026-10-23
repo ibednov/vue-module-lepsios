@@ -5,6 +5,7 @@
   "description": "Reusable CRM audit log API contracts, Vue state, and view",
   "license": "UNLICENSED",
   "files": [
+    "CHANGELOG.md",
     "examples/",
     "src/"
   ],
