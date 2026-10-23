@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ColumnDef } from '@tanstack/vue-table'
 import { computed, h, onMounted, reactive } from 'vue'
+import { RouterLink } from 'vue-router'
 import { CrmDataTable } from '@lepsios/vue'
 import { Button } from '@lepsios/vue/components/ui/button'
 import { Input } from '@lepsios/vue/components/ui/input'
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<{
   source: CRMAuditLogSource
   labels: CRMAuditLogLabels
   filterFields: CRMAuditLogFilterField[]
+  actorLink?: (event: CRMAuditLogEvent) => string | undefined
   pageSize?: number
   locale?: string
 }>(), {
@@ -46,7 +48,14 @@ const columns = computed<ColumnDef<CRMAuditLogEvent, unknown>[]>(() => [
     id: 'actor',
     accessorFn: event => event.actor_email || event.actor_id,
     header: props.labels.actor,
-    cell: ({ row }) => h('span', { class: 'break-all text-sm' }, row.original.actor_email || row.original.actor_id || '—'),
+    cell: ({ row }) => {
+      const actor = row.original
+      const label = actor.actor_email || actor.actor_id || '—'
+      const to = props.actorLink?.(actor)
+      return to && actor.actor_id
+        ? h(RouterLink, { to, class: 'break-all text-sm underline-offset-2 hover:underline' }, () => label)
+        : h('span', { class: 'break-all text-sm' }, label)
+    },
   },
   { accessorKey: 'actor_kind', header: props.labels.actorKind },
   {

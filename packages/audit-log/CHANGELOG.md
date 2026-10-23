@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- Add an optional host-provided actor link resolver.
+
 ## 0.5.0
 
 - Add shadcn-vue select filters with host-provided options.
