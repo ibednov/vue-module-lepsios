@@ -1,6 +1,6 @@
 # Concierge as the first implementation profile
 
-Concierge CRM is the reference frontend for the first reusable module pattern. Its app is Vue 3 with file-based routes under `src/microfrontends/@concierge/modules`, shared shadcn-vue components, Vue I18n, and a TanStack Vue Table wrapper at `src/components/ui/data-table/data-table.vue`. Leads now use that shared wrapper as the first table + Kanban implementation. Applications still have a hand-rendered linked-row list and are a separate follow-up migration.
+Concierge CRM is the reference frontend for the first reusable module pattern. Its app is Vue 3 with file-based routes under `src/microfrontends/@concierge/modules`, shadcn-vue components, and Vue I18n. Leads, applications, and contacts use the shared `CrmDataTable` from `vue-lepsios`; the Lead Kanban view remains product-owned.
 
 ## Keep from Concierge
 

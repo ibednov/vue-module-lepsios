@@ -8,10 +8,10 @@ Updated 2026-10-23. Scope is Concierge CRM, Spending CRM, Wishimi CRM, and Go Pr
 
 | CRM | Adoption |
 | --- | --- |
-| Concierge | Team, contacts, applications, and leads use the shared table. Local table implementation removed. Lead Kanban remains product-owned. |
-| Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API. |
+| Concierge | Team, contacts, applications, and leads use the shared table. Local table implementation removed. Lead Kanban remains product-owned. AI provider configuration and usage report tables remain product-specific. |
+| Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. The package now declares `@lepsios/vue` `^0.3.4`, which includes `CrmDataTable`. |
-| Go Product CRM | Already uses `CrmDataTable` in commercial proposals; no duplicate migration was made. |
+| Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. No changes were pushed.
 
