@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.5
+
+- Render audit select filters with native controls to avoid the runtime failure in the shared view.
+
 ## 0.5.4
 
 - Remove the unused read-access interface; permission enforcement stays in the host application.

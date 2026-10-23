@@ -5,7 +5,7 @@ import { RouterLink } from 'vue-router'
 import { CrmDataTable } from '@lepsios/vue'
 import { Button } from '@lepsios/vue/components/ui/button'
 import { Input } from '@lepsios/vue/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@lepsios/vue/components/ui/select'
+import { NativeSelect } from '@lepsios/vue/components/ui/native-select'
 import type { CRMAuditLogEvent, CRMAuditLogFilterField, CRMAuditLogLabels, CRMAuditLogQuery, CRMAuditLogSource } from './index'
 import { useCRMAuditLog } from './use-crm-audit-log'
 
@@ -29,8 +29,6 @@ const { items, total, loading, error, query, refresh, setFilters, setPage } = us
 const filterValues = reactive<Record<string, string>>(Object.fromEntries(
   props.filterFields.map(field => [field.key, String(props.initialFilters?.[field.key] ?? '')]),
 ))
-const ALL_FILTER_VALUE = '__all__'
-
 const pagination = computed(() => ({
   page: query.value.page,
   perPage: query.value.pageSize,
@@ -89,7 +87,7 @@ const columns = computed<ColumnDef<CRMAuditLogEvent, unknown>[]>(() => [
 const applyFilters = () => {
   const filters: Partial<Omit<CRMAuditLogQuery, 'page' | 'pageSize'>> = {}
   for (const field of props.filterFields)
-    Object.assign(filters, { [field.key]: filterValues[field.key] === ALL_FILTER_VALUE ? undefined : filterValues[field.key]?.trim() || undefined })
+    Object.assign(filters, { [field.key]: filterValues[field.key]?.trim() || undefined })
   void setFilters(filters)
 }
 
@@ -112,17 +110,16 @@ onMounted(() => {
     <form class="flex flex-wrap items-end gap-3" @submit.prevent="applyFilters">
       <label v-for="field in filterFields" :key="field.key" class="grid gap-1 text-sm">
         <span>{{ field.label }}</span>
-        <Select v-if="field.type === 'select'" v-model="filterValues[field.key]">
-          <SelectTrigger>
-            <SelectValue :placeholder="field.placeholder" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem :value="ALL_FILTER_VALUE">{{ field.placeholder }}</SelectItem>
-            <SelectItem v-for="option in field.options || []" :key="option.value" :value="option.value">
-              {{ option.label }}
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        <NativeSelect
+          v-if="field.type === 'select'"
+          v-model="filterValues[field.key]"
+          class="min-w-40"
+        >
+          <option value="">{{ field.placeholder }}</option>
+          <option v-for="option in field.options || []" :key="option.value" :value="option.value">
+            {{ option.label }}
+          </option>
+        </NativeSelect>
         <Input v-else v-model="filterValues[field.key]" :type="field.type || 'text'" :placeholder="field.placeholder" />
       </label>
       <Button type="submit" :disabled="loading">
