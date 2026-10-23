@@ -59,6 +59,7 @@ export interface CRMAuditLogLabels {
   time: string
   action: string
   actor: string
+  actorKind: string
   target: string
   details: string
   applyFilters: string

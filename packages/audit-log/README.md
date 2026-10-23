@@ -40,11 +40,11 @@ import { CrmAuditLogView } from '@lepsios/crm-audit-log/component'
 import { auditApi } from './audit-api'
 
 const filterFields = [
-  { key: 'actor_kind', label: 'Actor kind' },
+  { key: 'actor_kind', label: 'Actor kind', type: 'select', placeholder: 'Any actor kind', options: [{ value: 'admin', label: 'Admin' }, { value: 'user', label: 'User' }] },
   { key: 'type', label: 'Event type' },
   { key: 'actor_id', label: 'Actor ID' },
 ]
-const labels = { time: 'Time', action: 'Event type', actor: 'Actor', target: 'Target', details: 'Details', applyFilters: 'Apply', resetFilters: 'Reset', loading: 'Loading', empty: 'No events', previousPage: 'Previous page', nextPage: 'Next page' }
+const labels = { time: 'Time', action: 'Event type', actor: 'Actor', actorKind: 'Actor kind', target: 'Target', details: 'Details', applyFilters: 'Apply', resetFilters: 'Reset', loading: 'Loading', empty: 'No events', previousPage: 'Previous page', nextPage: 'Next page' }
 </script>
 
 <template>

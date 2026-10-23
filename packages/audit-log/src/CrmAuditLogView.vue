@@ -44,10 +44,11 @@ const columns = computed<ColumnDef<CRMAuditLogEvent, unknown>[]>(() => [
   { accessorKey: 'type', header: props.labels.action, cell: ({ row }) => h('span', { class: 'font-mono text-xs' }, row.original.type) },
   {
     id: 'actor',
-    accessorFn: event => event.actor_email || event.actor_id || event.actor_kind,
+    accessorFn: event => event.actor_email || event.actor_id,
     header: props.labels.actor,
-    cell: ({ row }) => h('span', { class: 'text-sm' }, row.original.actor_email || row.original.actor_id || row.original.actor_kind || '—'),
+    cell: ({ row }) => h('span', { class: 'break-all text-sm' }, row.original.actor_email || row.original.actor_id || '—'),
   },
+  { accessorKey: 'actor_kind', header: props.labels.actorKind },
   {
     id: 'target',
     accessorFn: event => `${event.target_type} ${event.target_id}`,
