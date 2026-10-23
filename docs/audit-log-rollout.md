@@ -29,10 +29,10 @@ meaning and endpoints.
    `CRMAuditLogSource`. A host whose API differs implements a mapper next to
    its API client. The package provides the reusable view and state; shared
    base UI components continue to come from `vue-lepsios`.
-3. **Done for local development:** `scripts/link-audit-log.mjs` links the
-   package into the four CRM hosts' `node_modules` without changing manifests
-   or lockfiles. Re-run it after a fresh checkout; local links do not provide
-   dependency installation for clean clones or deployment builds.
+3. **Done for local development:** Bun's built-in `bun link` registers the
+   package from `packages/audit-log`, then links it into each CRM host without
+   changing manifests or lockfiles. Re-link after a fresh checkout; local
+   links do not provide dependency installation for deployment builds.
 4. Publish or otherwise provide a versioned package source when clean installs
    and deployment builds need to consume this module.
 5. Add a Waify CRM consumer when that frontend is created.

@@ -1,25 +1,26 @@
 # Local development with the CRM audit package
 
 The repository uses npm-compatible workspaces for packages inside this
-repository. Workspaces do not span the separate CRM repositories. For local
-cross-repository development, link the package into each CRM host's existing
-`node_modules`; this does not edit the host's `package.json` or lockfile.
+repository. Workspaces do not span separate CRM repositories. For local
+cross-repository development, use Bun's built-in package linking.
 
-From the `vue-module-lepsios` checkout:
+Register the package once per developer machine, from the package directory:
 
 ```sh
-node scripts/link-audit-log.mjs \
-  /path/to/wishimi/crm \
-  /path/to/spending/spending-crm \
-  /path/to/alexbednov-crm \
-  /path/to/concierge-crm \
-  /path/to/go-product/self/crm
+cd /path/to/vue-module-lepsios/packages/audit-log
+bun link
 ```
 
-Pass both the feature repository and its build host when they are separate
-directories. The script only creates `node_modules/@lepsios/crm-audit-log`
-symlinks. It refuses to replace an existing path unless it already points at
-this package. Remove those symlinks when local development is finished. This
-is a developer workspace link, not a dependency declaration for clean installs
-or deployment; hosts will need a distributable package source before those
-builds can install the module independently.
+Then link it into each Bun-based CRM host:
+
+```sh
+cd /path/to/crm-host
+bun link @lepsios/crm-audit-log
+```
+
+The host command creates a symlink in `node_modules` without changing its
+`package.json` or lockfile. Repeat it for each host. Run
+`bun unlink @lepsios/crm-audit-log` in a host to remove the link.
+
+This is a developer-machine link, not a dependency declaration for clean
+installs or deployment. Those still need a distributable package source.
