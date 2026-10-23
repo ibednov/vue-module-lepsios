@@ -11,10 +11,12 @@ Reviewed on 2026-10-23 across Concierge CRM, Spending CRM, Wishimi CRM, and Go P
 
 ## Decision
 
-Do not create `team-members` yet. Concierge and Spending are the only confirmed operator-team consumers, but they expose materially different identity and onboarding operations: password-backed staff creation versus role assignment on Telegram-linked identities. A reusable display-only table would be a UI pattern, not a CRM feature module, and belongs in `vue-lepsios`.
+Create `@lepsios/crm-team-members` as a read-only normalized roster module for Concierge and Spending. The shared contract covers an opaque ID, display name, optional email, optional product identifiers, product role keys, and an optional created timestamp. Each host maps its own endpoint and DTO. Password-backed staff creation, invites, multi-role assignment, and removal stay in host pages because the products expose different operations. The generic list view is in `vue-lepsios`.
 
-Do not create `access-control` yet. Concierge's fixed enum and role hierarchy, Spending's backend-provided role map, and Go Product's product-account permissions do not establish a shared permission model or common read/write operations. Keep adapters and authorization enforcement in each host. Revisit if two products adopt the same role/permission API contract, not just a similarly shaped screen.
+Create `@lepsios/crm-access-control` for a read-only role and permission catalog view, shared by Spending and Go Product CRM. Hosts map their catalog DTOs to role identifiers, localized display names, and permission keys. This module does not authorize requests or mutate roles. Concierge has a fixed role enum without a permission catalog and remains outside this slice. Go Product customer account operations remain product-owned and do not enter the team roster module.
+
+Wishimi CRM users are end users with product entitlements, not CRM operators; do not map them into `team-members` or treat their entitlements as the shared access catalog.
 
 ## Current reusable layer
 
-The shared `CRMEmployee`, `CRMRole`, and `CRMPermission` types may be used as adapter targets where the host semantics fit. They do not authorize a host to unify its account records, role lifecycle, permissions, or API endpoints.
+The shared employee, role, and permission DTOs are adapter targets only where host semantics fit. They do not authorize a host to unify account records, role lifecycle, permissions enforcement, or API endpoints.
