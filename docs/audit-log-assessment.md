@@ -13,7 +13,7 @@ Reviewed on 2026-10-23 across the four first-wave CRM consumers.
 
 `@lepsios/crm-audit-log` standardizes only the normalized event, query/page, adapter, and read-access contracts. The host owns authentication, endpoint calls, permission enforcement, translations, event labels, and mapping from its DTO. API-specific filters are optional in the normalized query and may be ignored when an endpoint does not support them. The original payload stays opaque and is not interpreted by the shared contract.
 
-The package deliberately does not ship a Vue page or table: the shared table and shadcn-vue UI patterns belong in `vue-lepsios`, while page composition and product translations remain host-owned. Concierge and Wishimi are the confirmed first adapters. Do not migrate Spending or Go Product histories to this module without evidence of a global feed with matching semantics.
+The package ships a reusable CRM audit view and paging/filter state. Its table, inputs, and buttons come from `vue-lepsios`; each host supplies the authenticated source, labels, filters, and permission gating. Concierge and Wishimi are the confirmed first integrations. Do not migrate Spending or Go Product histories to this module without evidence of a global feed with matching semantics.
 
 ## Compatibility notes
 
