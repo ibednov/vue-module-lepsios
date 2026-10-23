@@ -14,4 +14,5 @@ export interface CRMAccessControlLabels {
   permissionCount: string
   emptyRoles: string
   emptyPermissions: string
+  loading: string
 }
