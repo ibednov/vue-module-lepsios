@@ -17,17 +17,17 @@ Adoption commits are in the respective consumer repositories; see each repositor
 
 ## Feature module adoption
 
-- **`@lepsios/crm-audit-log` 0.5.5**: the normalized audit DTO, query/page contract, injectable source, and shared view live under `packages/audit-log`. Concierge, Spending, Wishimi, and Go Product CRM use the shared view. Hosts own authentication and any API mapping. Bun links support local development only. Production Docker builds fetch a fixed module commit: Concierge fetches it in its own Dockerfile, and the `alexbednov-crm` host fetches it for Spending, Wishimi, and Go Product. The nested package is not published and cannot be installed directly from the monorepo's Git root.
+- **`@lepsios/crm-audit-log` 0.5.6**: the normalized audit DTO, query/page contract, injectable source, and shared view live under `packages/audit-log`. Concierge, Spending, Wishimi, and Go Product CRM use the shared view. Hosts own authentication and API mapping. Consumer manifests list only their selected module paths as Bun workspaces. Developers symlink the ignored `vendor/vue-module-lepsios` path to the shared checkout; Docker fetches a fixed module commit into that source path before `bun install`.
 - **`@lepsios/crm-team-members` 0.1.0**: the normalized read-only roster contract and source composable live under `packages/team-members`; the generic view lives in `vue-lepsios`. Concierge and Spending map their operator lists in host-owned adapters. Create, invite, role editing, and removal remain product-specific. Wishimi users and Go Product customer accounts are end users, outside this operator-team module.
 - **`@lepsios/crm-access-control` 0.1.1**: the role/permission catalog contract and source composable live under `packages/access-control`; the generic view lives in `vue-lepsios`. Spending and Go Product CRM map their read-only catalogs in host-owned adapters. Authorization enforcement and role mutation remain host-owned. Concierge exposes an enum role hierarchy but no matching permission catalog, so it is outside this module.
 - **Incoming customer requests**: remain unnamed and unimplemented until the business process is compared across the four products. Do not use `inquiries` by default or merge Concierge lead qualification with application conversion.
 
 ## Next steps
 
-1. If standalone clean installs become necessary, publish the nested packages to a package registry; current production Docker builds already have a pinned Git checkout path for audit-log.
+1. After the module APIs and release ownership are stable, publish the nested packages independently to a package registry. Until then, the pinned Git checkout plus Bun workspaces provides clean Docker installs without a registry.
 2. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
 3. Compare incoming-request workflows with concrete API operations before defining a module name or model.
 
 ## Verification and delivery
 
-All four first-wave CRM frontends use the shared audit view. Concierge and Spending use the read-only shared team roster; Spending and Go Product CRM use the shared read-only access catalog. The alexbednov-crm development build resolves canonical source packages, and its production-mode build uses vendored package copies. Local package links are for developer checkouts; production Dockerfiles fetch the audit package at a pinned commit. Automated tests were not run. Nothing was pushed.
+All four first-wave CRM frontends use the shared audit view. Concierge and Spending use the read-only shared team roster; Spending and Go Product CRM use the shared read-only access catalog. Consumer workspace installs resolve package manifests from the pinned `vue-module-lepsios` checkout. Concierge and alexbednov-crm production builds use the same workspace paths populated before Bun installs dependencies. Automated tests were not run. Nothing was pushed.

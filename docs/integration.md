@@ -1,38 +1,41 @@
 # Integration strategy
 
-`vue-module-lepsios` owns reusable CRM feature modules and their contracts;
-`vue-lepsios` owns reusable Vue UI components. Product repositories retain
-authentication, authorization, API calls, field mapping, translations, and
-product-specific composition.
+`vue-module-lepsios` owns reusable CRM feature contracts and state; `vue-lepsios`
+owns generic Vue UI components. Product repositories keep authentication,
+authorization, API calls, field mappings, translations, and product-specific
+composition.
 
-## Audit log module
+## Audit log
 
-`@lepsios/crm-audit-log` is the shared view and frontend contract for the
-`go-lepsios/audit` HTTP DTO. The package lives under
-`packages/audit-log` in this monorepo. Since the repository root is a separate
-private package, the nested module is not directly installable through a
-Git dependency, and it is not published to npm.
+`@lepsios/crm-audit-log` standardizes the frontend contract and view for the
+`go-lepsios/audit` model. Hosts own authentication, endpoint calls, permission
+checks, labels, and mapping from product DTOs.
 
-For local development, consumers use Bun's local package link. That link is
-machine-local and must not be treated as a production dependency.
+## Installing nested packages before registry publication
 
-For deployment builds, the supported delivery path is a multi-stage Docker
-build that clones this public repository at a fixed full commit SHA, sparse
-checks out `packages/audit-log`, and copies that directory to
-`node_modules/@lepsios/crm-audit-log` before running the frontend build. The
-Concierge CRM has its own fetch stage. The `alexbednov-crm` host does the same
-for its Spending, Wishimi, and Go Product microfrontends. Bump the pinned SHA
-only when the consuming CRM adopts the corresponding shared module revision.
+The repository root is not one of the CRM feature packages. Consumers list
+only the feature package paths they use as Bun workspaces under
+`vendor/vue-module-lepsios/packages/`, and their Dockerfiles populate those
+source paths from a pinned full commit before running `bun install`. Bun then
+links the workspaces like any other local dependency. For local development,
+the consumer's ignored `vendor/vue-module-lepsios` path can instead symlink to
+the canonical shared repository.
 
-This provides reproducible production builds without a local link or registry
-publication. Standalone frontend checkouts still need `bun link` for local
-development; standalone npm/Bun installation is unsupported until the module
-is published as a distributable package.
+This keeps each package independently named and versioned inside one Git
+repository, without publishing before its base is ready. Do not copy source
+directories into `node_modules` or install the monorepo root as a substitute
+for a nested package.
+
+`@lepsios/vue` is a separate repository whose package is at the repository
+root. Consumers use a direct Git dependency pinned to a full commit SHA. A
+local Bun link is optional for simultaneous source development.
 
 ## Compatibility
 
-- Keep semantic versioning for module APIs and shared models. Additive optional
-  fields are minor changes; removals, renames, or meaning changes are major.
-- Each host owns adapters for any legacy API field or pagination mapping.
-- Keep authentication, API error localization, permissions, and business rules
+- Keep semantic versions and changelogs on each module package.
+- Each host owns adapters for legacy API fields and pagination mappings.
+- Keep authentication, authorization, error localization, and business rules
   product-specific.
+- Publish each workspace package to a package registry after its public API
+  and release flow are ready; until then, commit the selected source SHA in the
+  consumer's deployment configuration and lockfile.
