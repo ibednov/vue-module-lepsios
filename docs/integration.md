@@ -1,20 +1,38 @@
 # Integration strategy
 
-The canonical source is the `vue-module-lepsios` repository. It owns shared CRM modules and their contracts; `vue-lepsios` owns reusable Vue components. Absolute-path imports and `file:` dependencies pointing outside a project are unsuitable for CI and Dokploy because those systems clone one repository at a time.
+`vue-module-lepsios` owns reusable CRM feature modules and their contracts;
+`vue-lepsios` owns reusable Vue UI components. Product repositories retain
+authentication, authorization, API calls, field mapping, translations, and
+product-specific composition.
 
-## Runtime package connection
+## Audit log module
 
-Once this repository has a GitHub remote and a release pipeline, publish `@alexbednov/crm-contracts` (or consume a pinned git tag). Each consumer pins a version and owns any adapters. Avoid floating `main` dependencies.
+`@lepsios/crm-audit-log` is the shared view and frontend contract for the
+`go-lepsios/audit` HTTP DTO. The package lives under
+`packages/audit-log` in this monorepo. Since the repository root is a separate
+private package, the nested module is not directly installable through a
+Git dependency, and it is not published to npm.
 
-The current repositories intentionally vendor package sources in `alexbednov-crm/packages/*` for production builds. Preserve that deployment contract until a verified packaging flow replaces it. `vite.config.ts` uses canonical sibling sources in development and vendored copies for production; do not remove the mirror without changing Docker build inputs and deployment validation.
+For local development, consumers use Bun's local package link. That link is
+machine-local and must not be treated as a production dependency.
 
-## Repository references before publication
+For deployment builds, the supported delivery path is a multi-stage Docker
+build that clones this public repository at a fixed full commit SHA, sparse
+checks out `packages/audit-log`, and copies that directory to
+`node_modules/@lepsios/crm-audit-log` before running the frontend build. The
+Concierge CRM has its own fetch stage. The `alexbednov-crm` host does the same
+for its Spending, Wishimi, and Go Product microfrontends. Bump the pinned SHA
+only when the consuming CRM adopts the corresponding shared module revision.
 
-Consumers should name this canonical repo in their project README/CRM architecture doc, but must keep working source inside the repository. This makes the design discoverable without introducing an unresolvable submodule URL. After the owner chooses/publishes the remote, replace those local-workspace references with a pinned git submodule or package dependency.
+This provides reproducible production builds without a local link or registry
+publication. Standalone frontend checkouts still need `bun link` for local
+development; standalone npm/Bun installation is unsupported until the module
+is published as a distributable package.
 
 ## Compatibility
 
-- Semantic version model fields and schema changes.
-- Additive optional fields are minor; removals/renames/meaning changes are major.
-- Create compatibility fixtures from each consuming API before adopting write operations.
-- Keep API error localization and authentication product-specific.
+- Keep semantic versioning for module APIs and shared models. Additive optional
+  fields are minor changes; removals, renames, or meaning changes are major.
+- Each host owns adapters for any legacy API field or pagination mapping.
+- Keep authentication, API error localization, permissions, and business rules
+  product-specific.
