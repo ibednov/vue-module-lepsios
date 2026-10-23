@@ -1,0 +1,13 @@
+{
+  "name": "@lepsios/crm-access-control",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Shared read-only CRM role and permission catalog contract",
+  "license": "UNLICENSED",
+  "files": ["CHANGELOG.md", "src/"],
+  "exports": {
+    ".": { "types": "./src/index.ts", "import": "./src/index.ts" },
+    "./vue": { "types": "./src/use-crm-access-control.ts", "import": "./src/use-crm-access-control.ts" }
+  },
+  "peerDependencies": { "vue": "^3.5.0" }
+}
