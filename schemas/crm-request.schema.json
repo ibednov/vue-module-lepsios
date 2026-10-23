@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.alexbednov.dev/crm/request.schema.json",
+  "title": "CRM Request",
+  "type": "object",
+  "required": ["id", "title", "status", "contact", "createdAt"],
+  "properties": {
+    "id": { "type": "string", "minLength": 1 },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "status": { "type": "string", "minLength": 1, "description": "Product-configured status key." },
+    "contact": { "$ref": "#/$defs/contact" },
+    "source": { "type": "string" },
+    "assigneeId": { "type": ["string", "null"] },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "customFields": { "type": "object", "additionalProperties": true },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "closedAt": { "type": ["string", "null"], "format": "date-time" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "contact": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "phone": { "type": "string" },
+        "externalId": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}
