@@ -23,18 +23,21 @@ meaning and endpoints.
 
 ## Delivery sequence
 
-1. Version and publish the `go-lepsios/audit` wire contract so consumers can
-   pin a released module. Do not push without user authorization.
-2. Finish the existing global-feed backends: Concierge, then Waify; reconcile
-   Wishimi's module version with the released contract.
-3. Keep `@lepsios/crm-audit-log` canonical and injectable through
+1. **Done locally:** align all five backend APIs on the `go-lepsios/audit`
+   wire contract and pin the consumers to `audit/v0.2.1`.
+2. Keep `@lepsios/crm-audit-log` canonical and injectable through
    `CRMAuditLogSource`. A host whose API differs implements a mapper next to
    its API client. The package provides the reusable view and state; shared
    base UI components continue to come from `vue-lepsios`.
-4. Make the versioned Vue workspace package installable by the CRM builds.
-5. Integrate the shared Vue module into Wishimi, Spending, Concierge, and Go
+3. **Blocked on package distribution setup:** make the versioned Vue workspace
+   package installable by the CRM builds. The local `vue-module-lepsios`
+   checkout has no Git remote and `@lepsios/crm-audit-log@0.4.1` is not
+   available from npm, so the four independent CRM builds cannot resolve it.
+   Do not add local absolute paths or copy the shared implementation into each
+   product repository as a substitute for a distributable package.
+4. Integrate the shared Vue module into Wishimi, Spending, Concierge, and Go
    Product CRM using each host's authenticated API source.
-6. Add a Waify CRM consumer when that frontend is created.
+5. Add a Waify CRM consumer when that frontend is created.
 
 ## Completion checks
 
