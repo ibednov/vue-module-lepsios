@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+- Document the source interface as the host extension point for custom API adapters.
+- Add a generic legacy API mapping example; product-specific adapters stay with their host API clients.
+
 ## 0.4.0
 
 - Align event and list query types with the `go-lepsios/audit` HTTP contract.

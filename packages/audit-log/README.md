@@ -4,7 +4,11 @@ Reusable audit log view and state for CRM hosts. Event fields and list request/r
 
 ## Host integration
 
-The host passes its authenticated list call. Its response `data` must already match the shared audit contract:
+The package exposes one canonical event and pagination contract. The host passes its authenticated list call through `CRMAuditLogSource`. If the backend already follows the shared HTTP contract, the source can return `data` directly. If a product API differs, implement a mapper in that product's frontend repository next to its API client; the shared view and state continue to consume canonical data.
+
+The source interface is the extension point. Hosts can provide a default pass-through source or a custom adapter without forking the UI module. A generic mapping example is in [`examples/custom-source.ts`](./examples/custom-source.ts).
+
+For a canonical API, the host source is a thin authenticated call:
 
 ```ts
 import { useCRMAuditLog } from '@lepsios/crm-audit-log/vue'
@@ -26,7 +30,7 @@ const audit = useCRMAuditLog(auditApi, { pageSize: 50 })
 void audit.refresh()
 ```
 
-The wrapper only unwraps the host API client's result; it does not rename or reshape audit events. When product APIs return the shared contract, there is no per-product adapter.
+The wrapper above only unwraps the host API client's result. A custom source may also translate legacy field names, filter names, or pagination, but that translation stays beside the host API client and returns the canonical package types.
 
 The reusable view is exported from `@lepsios/crm-audit-log/component`:
 
