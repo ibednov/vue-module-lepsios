@@ -50,11 +50,6 @@ export interface CRMAuditLogSource<TPayload = unknown> {
   list(query: CRMAuditLogListQuery): Promise<CRMAuditLogListData<TPayload>>
 }
 
-/** Host-provided authorization check; UI visibility does not replace server-side authorization. */
-export interface CRMAuditLogAccess {
-  canRead(): boolean
-}
-
 export interface CRMAuditLogLabels {
   time: string
   action: string

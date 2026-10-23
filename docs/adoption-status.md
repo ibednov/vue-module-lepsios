@@ -17,7 +17,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 
 ## Feature module candidates
 
-- **`@lepsios/crm-audit-log` 0.5.3**: normalized event, query/page, injectable source, and shared view live under `packages/audit-log`. Wishimi, Spending, Concierge, and Go Product CRM use it locally. Each host owns API authentication and mapping. The hosts resolve the package through local symlinks; package distribution is still needed for clean clones and deployment builds.
+- **`@lepsios/crm-audit-log` 0.5.4**: normalized event, query/page, injectable source, and shared view live under `packages/audit-log`. Wishimi, Spending, Concierge, and Go Product CRM use it locally. Each host owns API authentication and mapping. The hosts resolve the package through local links; package distribution is still needed for clean clones and deployment builds.
 - **Team members**: not ready as one module. Concierge creates password-backed staff with an enum role; Spending assigns multiple roles to Telegram-linked staff. Wishimi role editing and Go Product account management concern product end users, not operator teams.
 - **Access control**: not ready as one module. The four systems do not share a confirmed permission schema and set of read/write operations. Each host retains its own permission checks and API.
 - **Incoming customer requests**: remain unnamed and unimplemented until the business process is compared across the four products. Do not use `inquiries` by default or merge Concierge lead qualification with application conversion.

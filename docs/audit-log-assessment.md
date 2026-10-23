@@ -11,7 +11,7 @@ Reviewed on 2026-10-23 across the four first-wave CRM consumers.
 
 ## Shared boundary
 
-`@lepsios/crm-audit-log` standardizes only the normalized event, query/page, adapter, and read-access contracts. The host owns authentication, endpoint calls, permission enforcement, translations, event labels, and mapping from its DTO. API-specific filters are optional in the normalized query and may be ignored when an endpoint does not support them. The original payload stays opaque and is not interpreted by the shared contract.
+`@lepsios/crm-audit-log` standardizes the normalized event and query/page contract. The host owns authentication, endpoint calls, permission enforcement, translations, event labels, and mapping from its DTO. API-specific filters are optional in the normalized query and may be ignored when an endpoint does not support them. The original payload stays opaque and is not interpreted by the shared contract.
 
 The package ships a reusable CRM audit view and paging/filter state. Its table, inputs, and buttons come from `vue-lepsios`; each host supplies the authenticated source, labels, filters, and permission gating. All four CRM hosts now have a global endpoint to integrate. Entity activity remains separate from this module.
 
@@ -21,4 +21,4 @@ The package ships a reusable CRM audit view and paging/filter state. Its table, 
 - Map Concierge's `action/entity_type/entity_id/metadata/created_at` and Wishimi's `type/target_type/target_id/payload/occurred_at` in their respective host adapters.
 - Preserve actor kind and labels when present; they are optional because existing feeds provide different actor details.
 - Use one-based page numbers in the feature contract; adapters translate Wishimi's offset-based API.
-- Keep authorization checks server-side. The shared access contract is for host integration and UI gating only.
+- Keep authorization checks in each host and enforce them server-side. The shared view does not implement permission gating.

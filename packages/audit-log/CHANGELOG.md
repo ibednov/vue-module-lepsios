@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.4
+
+- Remove the unused read-access interface; permission enforcement stays in the host application.
+
 ## 0.5.3
 
 - Pass a mutable row array to the shared table while keeping composable state readonly.
