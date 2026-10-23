@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+- Support host-provided initial filter values and apply them to both controls and the first request.
+
 ## 0.5.1
 
 - Add an optional host-provided actor link resolver.

@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<{
   source: CRMAuditLogSource
   labels: CRMAuditLogLabels
   filterFields: CRMAuditLogFilterField[]
+  initialFilters?: Partial<Omit<CRMAuditLogQuery, 'page' | 'pageSize'>>
   actorLink?: (event: CRMAuditLogEvent) => string | undefined
   pageSize?: number
   locale?: string
@@ -21,8 +22,13 @@ const props = withDefaults(defineProps<{
   locale: undefined,
 })
 
-const { items, total, loading, error, query, refresh, setFilters, setPage } = useCRMAuditLog(props.source, { pageSize: props.pageSize })
-const filterValues = reactive<Record<string, string>>({})
+const { items, total, loading, error, query, refresh, setFilters, setPage } = useCRMAuditLog(props.source, {
+  pageSize: props.pageSize,
+  initialQuery: props.initialFilters,
+})
+const filterValues = reactive<Record<string, string>>(Object.fromEntries(
+  props.filterFields.map(field => [field.key, String(props.initialFilters?.[field.key] ?? '')]),
+))
 const ALL_FILTER_VALUE = '__all__'
 
 const pagination = computed(() => ({
