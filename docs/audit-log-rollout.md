@@ -15,11 +15,11 @@ meaning and endpoints.
 
 | Product | Backend state | CRM frontend state | Work |
 | --- | --- | --- | --- |
-| Concierge | `concierge-api` serves canonical `/api/v1/admin/audit-events` alongside the legacy endpoint. | `concierge-crm` uses the shared view and a host-owned authenticated source. | Done locally; distribution is a later step. |
-| Wishimi | `wishimi-back` serves the shared contract and pins `audit/v0.2.1`. | `wishimi/crm` uses the shared view and its host-owned API source. | Done locally; distribution is a later step. |
+| Concierge | `concierge-api` serves canonical `/api/v1/admin/audit-events` alongside the legacy endpoint. | `concierge-crm` uses the shared view and a host-owned authenticated source; its Docker build fetches the module at a pinned commit. | Integrated; production image path added locally. |
+| Wishimi | `wishimi-back` serves the shared contract and pins `audit/v0.2.1`. | `wishimi/crm` uses the shared view and its host-owned API source. | Integrated through `alexbednov-crm` host. |
 | Waify | `waify-api` and the existing `waify-web` API client match the shared event/list contract with filters and `total`. | No separate CRM frontend yet. | Add the future CRM as a consumer later. |
-| Spending | `spending-bot` serves `/internal/crm/audit-events` with the shared contract and records successful writes behind CRM permissions. Request bodies are not copied into audit payloads. | Spending CRM uses the shared view and an authenticated host-owned API source; user histories remain domain timelines. | Done locally; distribution is a later step. |
-| Go Product CRM | `site-api` serves `/api/v1/admin/audit-events`; migration backfills proposal and MCP audit entries, while permission-protected CRM writes are logged going forward. | Go Product CRM uses the shared view and an authenticated host-owned API source; proposal activity remains on its detail page. | Done locally; distribution is a later step. |
+| Spending | `spending-bot` serves `/internal/crm/audit-events` with the shared contract and records successful writes behind CRM permissions. Request bodies are not copied into audit payloads. | Spending CRM uses the shared view and an authenticated host-owned API source; user histories remain domain timelines. | Integrated through `alexbednov-crm` host. |
+| Go Product CRM | `site-api` serves `/api/v1/admin/audit-events`; migration backfills proposal and MCP audit entries, while permission-protected CRM writes are logged going forward. | Go Product CRM uses the shared view and an authenticated host-owned API source; proposal activity remains on its detail page. | Integrated through `alexbednov-crm` host. |
 
 ## Delivery sequence
 
@@ -31,10 +31,12 @@ meaning and endpoints.
    base UI components continue to come from `vue-lepsios`.
 3. **Done for local development:** Bun's built-in `bun link` registers the
    package from `packages/audit-log`, then links it into each CRM host without
-   changing manifests or lockfiles. Re-link after a fresh checkout; local
-   links do not provide dependency installation for deployment builds.
-4. Publish or otherwise provide a versioned package source when clean installs
-   and deployment builds need to consume this module.
+   changing manifests or lockfiles. This link is developer-local only.
+4. **Done for production builds:** Concierge and the `alexbednov-crm` host
+   sparse-clone `packages/audit-log` from this public repository at a pinned
+   full commit SHA and copy it into `node_modules` before the frontend build.
+   The nested package cannot be installed directly from the monorepo root.
+   Standalone package installs remain unsupported until npm publication.
 5. Add a Waify CRM consumer when that frontend is created.
 
 ## Completion checks
