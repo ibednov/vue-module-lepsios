@@ -17,18 +17,17 @@ Adoption commits are in the respective consumer repositories; see each repositor
 
 ## Feature module candidates
 
-- **`@lepsios/crm-audit-log` 0.1.0**: normalized event, query/page, adapter, and read-access contracts are committed under `packages/audit-log`. Concierge and Wishimi are confirmed global-feed candidates. Spending user activity and Go Product entity histories are not global logs. Consumer adapters are still pending package distribution and host integration.
+- **`@lepsios/crm-audit-log` 0.5.3**: normalized event, query/page, injectable source, and shared view live under `packages/audit-log`. Wishimi, Spending, Concierge, and Go Product CRM use it locally. Each host owns API authentication and mapping. The hosts resolve the package through local symlinks; package distribution is still needed for clean clones and deployment builds.
 - **Team members**: not ready as one module. Concierge creates password-backed staff with an enum role; Spending assigns multiple roles to Telegram-linked staff. Wishimi role editing and Go Product account management concern product end users, not operator teams.
 - **Access control**: not ready as one module. The four systems do not share a confirmed permission schema and set of read/write operations. Each host retains its own permission checks and API.
 - **Incoming customer requests**: remain unnamed and unimplemented until the business process is compared across the four products. Do not use `inquiries` by default or merge Concierge lead qualification with application conversion.
 
 ## Next steps
 
-1. Decide how to distribute individual packages from this repository (workspace/package publishing or another versioned mechanism); do not install by absolute local path.
-2. Add Concierge and Wishimi `audit-log` API adapters against the committed contract, keeping endpoint auth and event-label translations in each host.
-3. After those adapters establish the vertical slice, decide whether the shared module needs a UI layer in `vue-lepsios` or stays a contract plus host composition.
-4. Compare incoming-request workflows with concrete API operations before defining a module name or model.
+1. Choose a versioned distribution mechanism for clean installs and deployment builds.
+2. Add a Waify CRM consumer when its frontend is created.
+3. Compare incoming-request workflows with concrete API operations before defining a module name or model.
 
 ## Verification and delivery
 
-Changes were checked with `git diff --check`. Automated tests were not run. Wishimi has no installed `node_modules`, so its typecheck/build was unavailable. Concierge typecheck remains blocked by pre-existing type errors in the installed shared Vue dependency; changed page files had no reported errors in the prior filtered run. Nothing was pushed.
+The four CRM frontends use the shared audit view locally. Concierge and the Go Product, Spending, and deploy-shell builds completed; locale validation completed for Concierge. Typecheck attempts reported existing errors in shared Vue dependencies and no errors in the changed audit files. Automated tests were not run. Local package links do not make clean installs or deployment builds reproducible. Nothing was pushed.

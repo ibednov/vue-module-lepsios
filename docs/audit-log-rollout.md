@@ -15,11 +15,11 @@ meaning and endpoints.
 
 | Product | Backend state | CRM frontend state | Work |
 | --- | --- | --- | --- |
-| Concierge | `concierge-api` serves canonical `/api/v1/admin/audit-events` alongside the legacy endpoint. | `concierge-crm` still uses its existing global audit page and legacy source. | Switch the page source and view to the common module. |
-| Wishimi | `wishimi-back` serves the shared contract and pins `audit/v0.2.1`. | `wishimi/crm` has a global audit page on the canonical endpoint. | Replace local table/state with the shared CRM module. |
+| Concierge | `concierge-api` serves canonical `/api/v1/admin/audit-events` alongside the legacy endpoint. | `concierge-crm` uses the shared view and a host-owned authenticated source. | Done locally; distribution is a later step. |
+| Wishimi | `wishimi-back` serves the shared contract and pins `audit/v0.2.1`. | `wishimi/crm` uses the shared view and its host-owned API source. | Done locally; distribution is a later step. |
 | Waify | `waify-api` and the existing `waify-web` API client match the shared event/list contract with filters and `total`. | No separate CRM frontend yet. | Add the future CRM as a consumer later. |
-| Spending | `spending-bot` serves `/internal/crm/audit-events` with the shared contract and records successful writes behind CRM permissions. Request bodies are not copied into audit payloads. | Spending CRM has no global audit page yet; its user histories remain domain timelines. | Add the host source and common audit view. |
-| Go Product CRM | `site-api` serves `/api/v1/admin/audit-events`; migration backfills proposal and MCP audit entries, while permission-protected CRM writes are logged going forward. | Go Product CRM has no global audit page yet; proposal activity remains on its detail page. | Add the host source and common audit view. |
+| Spending | `spending-bot` serves `/internal/crm/audit-events` with the shared contract and records successful writes behind CRM permissions. Request bodies are not copied into audit payloads. | Spending CRM uses the shared view and an authenticated host-owned API source; user histories remain domain timelines. | Done locally; distribution is a later step. |
+| Go Product CRM | `site-api` serves `/api/v1/admin/audit-events`; migration backfills proposal and MCP audit entries, while permission-protected CRM writes are logged going forward. | Go Product CRM uses the shared view and an authenticated host-owned API source; proposal activity remains on its detail page. | Done locally; distribution is a later step. |
 
 ## Delivery sequence
 
@@ -29,14 +29,12 @@ meaning and endpoints.
    `CRMAuditLogSource`. A host whose API differs implements a mapper next to
    its API client. The package provides the reusable view and state; shared
    base UI components continue to come from `vue-lepsios`.
-3. **Blocked on package distribution setup:** make the versioned Vue workspace
-   package installable by the CRM builds. The local `vue-module-lepsios`
-   checkout has no Git remote and `@lepsios/crm-audit-log@0.4.1` is not
-   available from npm, so the four independent CRM builds cannot resolve it.
-   Do not add local absolute paths or copy the shared implementation into each
-   product repository as a substitute for a distributable package.
-4. Integrate the shared Vue module into Wishimi, Spending, Concierge, and Go
-   Product CRM using each host's authenticated API source.
+3. **Done for local development:** `scripts/link-audit-log.mjs` links the
+   package into the four CRM hosts' `node_modules` without changing manifests
+   or lockfiles. Re-run it after a fresh checkout; local links do not provide
+   dependency installation for clean clones or deployment builds.
+4. Publish or otherwise provide a versioned package source when clean installs
+   and deployment builds need to consume this module.
 5. Add a Waify CRM consumer when that frontend is created.
 
 ## Completion checks
