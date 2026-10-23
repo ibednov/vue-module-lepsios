@@ -13,7 +13,7 @@ node scripts/link-audit-log.mjs \
   /path/to/spending/spending-crm \
   /path/to/alexbednov-crm \
   /path/to/concierge-crm \
-  /path/to/go-product/crm
+  /path/to/go-product/self/crm
 ```
 
 Pass both the feature repository and its build host when they are separate
