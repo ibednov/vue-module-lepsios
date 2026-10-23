@@ -60,7 +60,9 @@ export interface CRMAuditLogLabels {
   action: string
   actor: string
   target: string
+  details: string
   applyFilters: string
+  resetFilters: string
   loading: string
   empty: string
   previousPage: string
@@ -70,6 +72,7 @@ export interface CRMAuditLogLabels {
 export interface CRMAuditLogFilterField {
   key: keyof Omit<CRMAuditLogQuery, 'page' | 'pageSize'>
   label: string
-  type?: 'date' | 'text'
+  type?: 'date' | 'select' | 'text'
   placeholder?: string
+  options?: Array<{ value: string, label: string }>
 }

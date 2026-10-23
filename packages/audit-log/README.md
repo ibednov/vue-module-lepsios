@@ -44,7 +44,7 @@ const filterFields = [
   { key: 'type', label: 'Event type' },
   { key: 'actor_id', label: 'Actor ID' },
 ]
-const labels = { time: 'Time', action: 'Event type', actor: 'Actor', target: 'Target', applyFilters: 'Apply', loading: 'Loading', empty: 'No events', previousPage: 'Previous page', nextPage: 'Next page' }
+const labels = { time: 'Time', action: 'Event type', actor: 'Actor', target: 'Target', details: 'Details', applyFilters: 'Apply', resetFilters: 'Reset', loading: 'Loading', empty: 'No events', previousPage: 'Previous page', nextPage: 'Next page' }
 </script>
 
 <template>
