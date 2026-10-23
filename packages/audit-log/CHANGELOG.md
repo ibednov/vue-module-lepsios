@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.6
+
+- Support the shared Vue package 0.4.x used by current CRM consumers.
+
 ## 0.5.5
 
 - Render audit select filters with native controls to avoid the runtime failure in the shared view.
