@@ -15,11 +15,11 @@ meaning and endpoints.
 
 | Product | Backend state | CRM frontend state | Work |
 | --- | --- | --- | --- |
-| Concierge | `concierge-api` now serves canonical `/api/v1/admin/audit-events` with shared query fields and DTOs. Legacy `/api/v1/admin/audit` remains for the current frontend. | `concierge-crm` has a global audit page on the legacy endpoint. | Switch the frontend source to the canonical endpoint when the shared Vue package is released to consumers. |
-| Wishimi | `wishimi-back` serves `/api/v1/admin/audit-events` using `audit.HTTPEvent` and `audit.HTTPListData`; it pins `audit/v0.2.0`. | `wishimi/crm` has a global audit page on the canonical endpoint. | Replace the page's local table/state with the shared CRM module when the package can be installed by the host. |
-| Waify | `waify-api` now stores `actor_kind` and serves the shared event/list contract with filtering and `total`. | No separate CRM frontend yet; `waify-web`'s API client matches the shared response. | Add the future CRM as a consumer later. |
-| Spending | `spending-bot` exposes wallet activity and plan history; no global admin audit feed was found. | Spending CRM exposes user activity/history, not a global actor-action log. | Keep domain history out of `audit-log`. Add a global admin audit feed only as a separate backend feature with an explicit event/write-coverage inventory; then integrate the shared module. |
-| Go Product CRM | `site-api` exposes commercial proposal activity and has other local audit writes, but no cross-domain audit feed was found. | Go Product CRM exposes proposal activity. | Preserve proposal history. Add a separate global audit feed only after defining which cross-domain actions it must capture; then integrate the shared module. |
+| Concierge | `concierge-api` serves canonical `/api/v1/admin/audit-events` alongside the legacy endpoint. | `concierge-crm` still uses its existing global audit page and legacy source. | Switch the page source and view to the common module. |
+| Wishimi | `wishimi-back` serves the shared contract and pins `audit/v0.2.1`. | `wishimi/crm` has a global audit page on the canonical endpoint. | Replace local table/state with the shared CRM module. |
+| Waify | `waify-api` and the existing `waify-web` API client match the shared event/list contract with filters and `total`. | No separate CRM frontend yet. | Add the future CRM as a consumer later. |
+| Spending | `spending-bot` serves `/internal/crm/audit-events` with the shared contract and records successful writes behind CRM permissions. Request bodies are not copied into audit payloads. | Spending CRM has no global audit page yet; its user histories remain domain timelines. | Add the host source and common audit view. |
+| Go Product CRM | `site-api` serves `/api/v1/admin/audit-events`; migration backfills proposal and MCP audit entries, while permission-protected CRM writes are logged going forward. | Go Product CRM has no global audit page yet; proposal activity remains on its detail page. | Add the host source and common audit view. |
 
 ## Delivery sequence
 
@@ -31,11 +31,9 @@ meaning and endpoints.
    `CRMAuditLogSource`. A host whose API differs implements a mapper next to
    its API client. The package provides the reusable view and state; shared
    base UI components continue to come from `vue-lepsios`.
-4. Integrate the shared Vue module into Concierge and Wishimi CRM using their
-   global feeds, then update the package adoption notes.
-5. Inventory admin mutations and retention/authorization requirements for
-   Spending and Go Product before creating global feeds. Do not pass their
-   wallet or proposal histories as audit events.
+4. Make the versioned Vue workspace package installable by the CRM builds.
+5. Integrate the shared Vue module into Wishimi, Spending, Concierge, and Go
+   Product CRM using each host's authenticated API source.
 6. Add a Waify CRM consumer when that frontend is created.
 
 ## Completion checks

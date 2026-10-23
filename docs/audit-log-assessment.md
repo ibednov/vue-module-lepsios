@@ -6,14 +6,14 @@ Reviewed on 2026-10-23 across the four first-wave CRM consumers.
 | --- | --- | --- |
 | Concierge | `/api/v1/admin/audit`, date range and action filters, page/limit pagination; events have actor ID/email, action, entity type/ID, metadata and creation time. Navigation is restricted to owner/admin, and the API remains responsible for authorization. | Yes |
 | Wishimi | `/admin/audit-events`, offset/limit pagination; filters include actor kind/ID, event type and target type/ID. Events have actor and target identifiers, payload and occurrence time. | Yes |
-| Spending | Activity feed is attached to an individual user's spending record. | No; keep within the user detail feature unless a global audit feed is found. |
-| Go Product CRM | Histories are attached to inquiry or commercial proposal detail records. | No; these are entity timelines, not a global audit feed. |
+| Spending | User activity remains attached to individual spending records. A separate global feed now records successful writes through permission-protected CRM routes. | Yes for the new global endpoint. Preserve user activity as a separate domain timeline. |
+| Go Product CRM | Proposal detail retains its own timeline. A separate global feed now combines backfilled proposal/MCP events with successful CRM API writes. | Yes for the new global endpoint. Preserve proposal activity as a separate domain timeline. |
 
 ## Shared boundary
 
 `@lepsios/crm-audit-log` standardizes only the normalized event, query/page, adapter, and read-access contracts. The host owns authentication, endpoint calls, permission enforcement, translations, event labels, and mapping from its DTO. API-specific filters are optional in the normalized query and may be ignored when an endpoint does not support them. The original payload stays opaque and is not interpreted by the shared contract.
 
-The package ships a reusable CRM audit view and paging/filter state. Its table, inputs, and buttons come from `vue-lepsios`; each host supplies the authenticated source, labels, filters, and permission gating. Concierge and Wishimi are the confirmed first integrations. Do not migrate Spending or Go Product histories to this module without evidence of a global feed with matching semantics.
+The package ships a reusable CRM audit view and paging/filter state. Its table, inputs, and buttons come from `vue-lepsios`; each host supplies the authenticated source, labels, filters, and permission gating. All four CRM hosts now have a global endpoint to integrate. Entity activity remains separate from this module.
 
 ## Compatibility notes
 
