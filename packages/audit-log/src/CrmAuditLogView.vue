@@ -138,7 +138,7 @@ onMounted(() => {
     </p>
 
     <CrmDataTable
-      :data="items"
+      :data="[...items]"
       :columns="columns"
       :loading="loading"
       :empty="!error && !items.length"

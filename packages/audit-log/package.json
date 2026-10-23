@@ -1,6 +1,6 @@
 {
   "name": "@lepsios/crm-audit-log",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "type": "module",
   "description": "Reusable CRM audit log API contracts, Vue state, and view",
   "license": "UNLICENSED",

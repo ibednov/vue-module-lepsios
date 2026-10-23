@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.3
+
+- Pass a mutable row array to the shared table while keeping composable state readonly.
+
 ## 0.5.2
 
 - Support host-provided initial filter values and apply them to both controls and the first request.
