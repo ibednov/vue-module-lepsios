@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.8
+
+- Pass the shared table's `previousLabel` prop so the previous-page label is shown.
+
 ## 0.5.7
 
 - Accept the compatible Vue component package 0.5.x used by current CRM consumers.

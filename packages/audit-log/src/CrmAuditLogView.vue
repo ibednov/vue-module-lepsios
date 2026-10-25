@@ -144,7 +144,7 @@ onMounted(() => {
       :get-row-id="event => event.id"
       :loading-text="labels.loading"
       :empty-text="labels.empty"
-      :prev-label="labels.previousPage"
+      :previous-label="labels.previousPage"
       :next-label="labels.nextPage"
       @page-change="setPage"
     />
