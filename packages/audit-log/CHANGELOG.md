@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.7
+
+- Accept the compatible Vue component package 0.5.x used by current CRM consumers.
+
 ## 0.5.6
 
 - Support the shared Vue package 0.4.x used by current CRM consumers.
