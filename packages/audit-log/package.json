@@ -3,7 +3,7 @@
   "version": "0.5.8",
   "type": "module",
   "description": "Reusable CRM audit log API contracts, Vue state, and view",
-  "license": "UNLICENSED",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "files": [
     "CHANGELOG.md",
     "examples/",

@@ -1,6 +1,7 @@
 {
   "name": "@alexbednov/crm-modules-template",
   "version": "0.1.0",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "private": true,
   "type": "module",
   "description": "Copyable Vue CRM frontend structure and shared UI model contracts",

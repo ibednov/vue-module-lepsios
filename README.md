@@ -43,3 +43,7 @@ Product API DTOs stay in each module's `services` adapter. Shared contracts desc
 - Forms and all visible labels are localized. Network failures have a human-readable state and retry action.
 
 The first adoption group is Concierge plus Spending, Wishimi, and Go Product CRM. See `docs/concierge-starter.md` for Concierge patterns and domain boundaries. `templates/frontend-module/` is an illustrative feature-module starter based on Concierge's shared DataTable, with an optional Kanban view.
+
+## License
+
+[PolyForm Noncommercial License 1.0.0](LICENSE). Free for noncommercial use; commercial use requires the author's written permission — contact via [alexbednov.dev](https://alexbednov.dev). See [CONTRIBUTING.md](CONTRIBUTING.md).
