@@ -1,5 +1,9 @@
 # Changelog
 
+## packages/ai 0.1.0
+
+- Add `@lepsios/crm-ai`: provider-config contracts, Vue state, and reusable providers view for CRM hosts.
+
 ## 0.1.0 — draft
 
 - Initial CRM contracts for requests, conversations/messages, preferences, staff, roles, permissions, keys, audit events, pagination and API errors.
