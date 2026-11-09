@@ -31,12 +31,12 @@ module directories into `node_modules` after installing dependencies.
 
 ## Production and clean Docker builds
 
-Each consumer's Dockerfile checks out the shared repository at a full commit
-SHA and copies only that consumer's selected package directories into
-`/app/vendor/vue-module-lepsios/packages/` before `bun install --frozen-lockfile`.
-The consumer's workspace declarations then let Bun install and link those
-packages normally. Keep the checkout pinned to a full SHA and update the lock
-file with the corresponding module commit.
+Each consumer's Dockerfile checks out the shared repository at a **git tag**
+(never a bare commit SHA) and copies only that consumer's selected package
+directories into `/app/vendor/vue-module-lepsios/packages/` before
+`bun install --frozen-lockfile`. The consumer's workspace declarations then let
+Bun install and link those packages normally. After releasing packages, push an
+annotated monorepo tag (e.g. `v0.6.0`) and pin `CRM_MODULES_REF` to that tag.
 
 `@lepsios/vue` lives at the root of its own repository, so consumers install it
 as a direct Git dependency pinned in `package.json` and `bun.lock`. During
