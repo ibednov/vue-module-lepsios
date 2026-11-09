@@ -5,6 +5,28 @@ separate private package, so a consumer cannot install one nested module by
 pointing Bun at the Git repository root. The packages are not published to a
 registry yet.
 
+## Version pins (package.json only)
+
+Consumer **Dockerfile does not carry version pins**. Bump shared code by
+changing the consumer manifest (and lockfile), then rebuild:
+
+| Package | Where the pin lives |
+|---|---|
+| `@lepsios/vue` | `dependencies["@lepsios/vue"]` git URL + **tag** (e.g. `#v0.5.0-crm.1`) |
+| `@lepsios/crm-*` | `lepsiosModules.ref` monorepo **tag** + `lepsiosModules.packages[]` |
+
+```json
+"lepsiosModules": {
+  "repository": "https://github.com/ibednov/vue-module-lepsios.git",
+  "ref": "v0.6.0",
+  "packages": ["ai", "audit-log", "team-members", "access-control"]
+}
+```
+
+Docker runs `scripts/vendor-lepsios-modules.mjs` (reads `lepsiosModules`) then
+`bun install --frozen-lockfile`. Do not add `ARG *_REF` version defaults to the
+Dockerfile for routine upgrades.
+
 ## Local development
 
 Consumer manifests declare only the packages they use as Bun workspaces under
@@ -19,26 +41,15 @@ ln -s /path/to/mine/_shared/vue-module-lepsios vendor/vue-module-lepsios
 bun install
 ```
 
-The package manager links the selected workspaces into `node_modules`. Editing
-the shared repository updates the consumer immediately. The `vendor` link is
-ignored by consumer repositories and must not be committed. The same setup
-works when `vue-module-lepsios` is checked out elsewhere; use the real path to
-that checkout.
+`bun run vendor:modules` is a no-op when those packages already exist (local
+symlink). The `vendor` link is ignored by consumer repositories and must not be
+committed.
 
-Do not use a generic Git dependency for these nested packages: Git installs the
-root package, whose identity differs from the feature modules. Do not copy
-module directories into `node_modules` after installing dependencies.
+Do not use a generic Git dependency for nested CRM modules: Git installs the
+root package, whose identity differs from the feature modules.
 
-## Production and clean Docker builds
+## `@lepsios/vue`
 
-Each consumer's Dockerfile checks out the shared repository at a **git tag**
-(never a bare commit SHA) and copies only that consumer's selected package
-directories into `/app/vendor/vue-module-lepsios/packages/` before
-`bun install --frozen-lockfile`. The consumer's workspace declarations then let
-Bun install and link those packages normally. After releasing packages, push an
-annotated monorepo tag (e.g. `v0.6.0`) and pin `CRM_MODULES_REF` to that tag.
-
-`@lepsios/vue` lives at the root of its own repository, so consumers install it
-as a direct Git dependency pinned in `package.json` and `bun.lock`. During
-local development, `bun link` can point `@lepsios/vue` at a working checkout;
-that link is optional and local to the developer machine.
+Root of its own repository — install as a **git dependency with a tag** in
+`package.json` / `bun.lock` (same pattern as wishimi-front). Optional local
+override: sibling checkout / `bun link`; Vite may resolve sibling `src` in dev.
