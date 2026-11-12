@@ -17,12 +17,12 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Wishimi (standalone + shell), Spending, CRM shell, Concierge, and Yarmarka use shared `AdminShell`; breadcrumb/frame/header/state components come from `@lepsios/vue` v0.8.2. Manual authenticated route smoke remains unverified. |
-| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the shared responsive cards slot; typecheck and production/dev builds pass in CRM shell. Manual Yarmarka route smoke remains open. |
-| G3 One UI primitive source | Local `shad-cn` trees are removed from consumers; admin primitives resolve from `@lepsios/vue` v0.8.2 across all five CRMs. Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept Vue 0.8.x. |
-| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Tags through v0.8.2 are pushed; Concierge and Yarmarka consume the shared helpers. |
+| G1 One page chrome | Wishimi (standalone + shell), Spending, CRM shell, Concierge, and Yarmarka use shared `AdminShell`; breadcrumb/frame/header/state components come from `@lepsios/vue` v0.8.3. Manual authenticated route smoke remains unverified. |
+| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the responsive cards slot and v0.8.3 hides the desktop table when cards render; typecheck and production/dev builds pass in CRM shell. Manual Yarmarka route smoke remains open. |
+| G3 One UI primitive source | Local `shad-cn` trees are removed from consumers; admin primitives resolve from `@lepsios/vue` v0.8.3 across all five CRMs. Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept Vue 0.8.x. |
+| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Tags through v0.8.3 are pushed; Concierge and Yarmarka consume the shared helpers. |
 | G5 Table/Kanban shell | Shared table and Kanban shells are in `@lepsios/vue`; Go Product accounts/FAQ now use the shared table, including responsive account cards. Concierge uses the shared Kanban shell. |
-| G6 Feature module: API keys | API Keys v0.1.3 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone previously vendored API Keys from the configured module ref and passed frozen-lockfile install; shell install/build/typecheck pass on Vue v0.8.2. Manual route smoke remains open. |
+| G6 Feature module: API keys | API Keys v0.1.3 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone previously vendored API Keys from the configured module ref and passed frozen-lockfile install; shell install/build/typecheck pass on Vue v0.8.3. Manual route smoke remains open. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
 Update this table as goals complete (version tags, PRs).
@@ -189,7 +189,7 @@ independently; G3–G5 use the completed G1/G2 surface.
 - [x] Yarmarka: same (commit `1ad4dd5`).
 - [x] alexbednov-crm shell: same; `src/components/shad-cn` removed (commit `c3efb39`; stale aliases cleaned in `b767c8e`).
 - [x] Builds green; product packages don’t need shell shad-cn aliases.
-- [x] G3 consumers use compatible remote `@lepsios/vue` releases; all consumers pin/accept v0.8.2 and the shared G4 APIs remain available from v0.7.6 onward.
+- [x] G3 consumers use compatible remote `@lepsios/vue` releases; all consumers pin/accept v0.8.3 and the shared G4 APIs remain available from v0.7.6 onward.
 
 ### Steps (order)
 
@@ -233,7 +233,7 @@ ui/dashboard/*, ui/animate/*     → defer unless second non-C/Y consumer needs 
 - [x] Priority helpers live in vue-lepsios and are exported (`CrmEntityNavigation`, `FieldTagsInput`, `runBulkAction`; shared pagination and clipboard utility already existed).
 - [x] Yarmarka imports the shared helpers; unused local pagination, clipboard, and utility files were removed. Concierge has no live entity/tags usages; its unused matching common/crypto/table/date/ui/bulk-action copies were removed.
 - [x] ConfirmActionDialog gone both sides.
-- [x] Vue v0.7.6–v0.8.2 + CHANGELOG; release tags are available remotely and consumers pin/accept v0.8.x.
+- [x] Vue v0.7.6–v0.8.3 + CHANGELOG; release tags are available remotely and consumers pin/accept v0.8.x.
 
 ### Steps
 
