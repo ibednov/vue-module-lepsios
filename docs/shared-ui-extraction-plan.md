@@ -17,9 +17,9 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell and Concierge builds/typechecks pass with remote Vue v0.7.8; manual route smoke remains unverified. |
+| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell and Concierge builds/typechecks pass with Vue v0.7.8; Yarmarka passes with v0.7.9. Manual route smoke remains unverified. |
 | G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Spending shell, Concierge, and Yarmarka production builds and typechecks pass on their remote Vue pins. Manual route smoke remains open. |
-| G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
+| G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees and imports removed; production builds pass. Shell pins Vue v0.7.8, Concierge v0.7.8, and Yarmarka v0.7.9. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Vue v0.7.6–v0.7.9 tags are pushed. Yarmarka pins v0.7.9 and consumes the shared helpers. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
 | G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone vendored API Keys v0.1.2 from the configured remote ref and passed frozen-lockfile install. Spending shell production build and typecheck pass with Vue v0.7.8. Manual route smoke remains open. |
@@ -92,7 +92,7 @@ Update this table as goals complete (version tags, PRs).
 - [x] Root exports fixed for anything hosts deep-import today (`CrmTeamMembersView`, `CrmAccessControlView`, Admin*).
 - [x] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
 - [x] Spending/Go Product/Concierge/Yarmarka migrated list/settings screens use package chrome.
-- [x] `@lepsios/vue` version + CHANGELOG; G1 consumers pinned to v0.7.5.
+- [x] `@lepsios/vue` version + CHANGELOG; consumers use supported v0.7.x releases (shell v0.7.8, Concierge v0.7.8, Yarmarka v0.7.9; Wishimi and standalone feature repos declare compatible peer ranges).
 - [ ] Manual route smoke: Wishimi users + audit; one Concierge list header.
 
 ### Steps (order)
@@ -189,7 +189,7 @@ independently; G3–G5 use the completed G1/G2 surface.
 - [x] Yarmarka: same (commit `1ad4dd5`).
 - [x] alexbednov-crm shell: same; `src/components/shad-cn` removed (commit `c3efb39`; stale aliases cleaned in `b767c8e`).
 - [x] Builds green; product packages don’t need shell shad-cn aliases.
-- [x] G3 consumers use the same `@lepsios/vue` v0.7.5 tag; new G4 APIs are released as v0.7.6.
+- [x] G3 consumers use compatible remote `@lepsios/vue` v0.7.x release pins; the shared G4 APIs and follow-up fixes are released in v0.7.6–v0.7.9.
 
 ### Steps (order)
 
@@ -233,7 +233,7 @@ ui/dashboard/*, ui/animate/*     → defer unless second non-C/Y consumer needs 
 - [x] Priority helpers live in vue-lepsios and are exported (`CrmEntityNavigation`, `FieldTagsInput`, `runBulkAction`; shared pagination and clipboard utility already existed).
 - [x] Yarmarka imports the shared helpers; unused local pagination, clipboard, and utility files were removed. Concierge has no live entity/tags usages; its unused matching common/crypto/table/date/ui/bulk-action copies were removed.
 - [x] ConfirmActionDialog gone both sides.
-- [x] Vue version 0.7.6 + CHANGELOG and local `v0.7.6` tag; follow-up type fixes are in local `v0.7.7` and `v0.7.8` tags.
+- [x] Vue versions 0.7.6–0.7.9 + CHANGELOG; all four release tags are available remotely and Yarmarka pins v0.7.9.
 
 ### Steps
 
@@ -298,7 +298,7 @@ Status enums, permissions, drag/drop policy, API operations, and card content.
 1. Diff both `mcp-keys` services/pages; write contract in package `index.ts`.
 2. Implement composable + view (follow audit-log/ai pattern).
 3. Migrate Spending, then Go Product.
-4. Vendor/pin in alexbednov-crm `lepsiosModules` (local source SHA recorded; upstream availability pending).
+4. Vendor/pin in alexbednov-crm `lepsiosModules`; API Keys v0.1.2 and its configured module source ref are available remotely, and a fresh shell clone installs from the frozen lockfile.
 
 ### Depends on
 

@@ -21,10 +21,10 @@ localization, and snippet headers. The list contract intentionally has no
 secret field. Their CRM pages now use `CrmApiKeysView` through host-owned source
 adapters: Spending keeps its Telegram owner selector and usage refresh behavior;
 Go Product keeps its admin permission gate and login redirect. A production
-build of the shell and a targeted typecheck of both adapters and the shared view
-passed against the local `vue-lepsios` source. The `api-keys` package supports
-`@lepsios/vue` 0.5.x, 0.6.x, and 0.7.x. Clean-clone installation still requires
-the referenced source commits to be available remotely.
+build and typecheck of the shell and adapters pass against the remote Vue release
+pin. The `api-keys` package supports `@lepsios/vue` 0.5.x, 0.6.x, and 0.7.x. A
+fresh Spending shell clone fetched the configured API Keys source ref and passed
+frozen-lockfile installation.
 
 ## Installing nested packages before registry publication
 
@@ -42,8 +42,8 @@ directories into `node_modules` or install the monorepo root as a substitute
 for a nested package.
 
 `@lepsios/vue` is a separate repository whose package is at the repository
-root. Consumers use a direct Git dependency pinned to a full commit SHA. A
-local Bun link is optional for simultaneous source development.
+root. Consumer manifests use a release tag and the lockfile resolves it to a
+commit SHA. A local Bun link is optional for simultaneous source development.
 
 ## Compatibility
 
