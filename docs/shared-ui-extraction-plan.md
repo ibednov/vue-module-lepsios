@@ -17,11 +17,11 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Core consumers use shared headers/frames/states; Wishimi (standalone + shell), Spending, and CRM shell layouts now use shared `AdminShell`/breadcrumbs from Vue v0.8.0. Product migration/build verification in progress; manual route smoke remains unverified. |
-| G2 One table | Shared parity and planned list migrations are committed; Go Product account/FAQ tables are being migrated to `CrmDataTable` (including shared mobile-card slot). Verify canonical Go Product and shell copies before marking complete. Manual route smoke remains open. |
-| G3 One UI primitive source | Local `shad-cn` trees are removed from migrated consumers. Top-three admin shells now resolve shared primitives from `@lepsios/vue` v0.8.0; final consumer builds and package pins in progress. |
+| G1 One page chrome | Wishimi (standalone + shell), Spending, and CRM shell now use `AdminShell`; breadcrumbs/frame/header/state components come from `@lepsios/vue` v0.8.1. Concierge and Yarmarka also use shared chrome. Manual authenticated route smoke remains unverified. |
+| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the shared responsive cards slot; typecheck and production/dev builds pass in CRM shell. Manual Yarmarka route smoke remains open. |
+| G3 One UI primitive source | Local `shad-cn` trees are removed from consumers; admin primitives resolve from `@lepsios/vue`. Wishimi, Spending, and Go Product pin/accept Vue 0.8.x; Concierge/Yarmarka still need the current pin refresh after the next ordered pass. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Vue v0.7.6–v0.7.9 tags are pushed. Yarmarka pins v0.7.9 and consumes the shared helpers. |
-| G5 Table/Kanban shell | Shared Kanban/table shell is available; Go Product's remaining list tables are being brought onto the shared table component. |
+| G5 Table/Kanban shell | Shared table and Kanban shells are in `@lepsios/vue`; Go Product accounts/FAQ now use the shared table, including responsive account cards. Concierge uses the shared Kanban shell. |
 | G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone vendored API Keys v0.1.2 from the configured remote ref and passed frozen-lockfile install. Spending shell production build and typecheck pass with Vue v0.7.8. Manual route smoke remains open. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
@@ -189,7 +189,7 @@ independently; G3–G5 use the completed G1/G2 surface.
 - [x] Yarmarka: same (commit `1ad4dd5`).
 - [x] alexbednov-crm shell: same; `src/components/shad-cn` removed (commit `c3efb39`; stale aliases cleaned in `b767c8e`).
 - [x] Builds green; product packages don’t need shell shad-cn aliases.
-- [x] G3 consumers use compatible remote `@lepsios/vue` v0.7.x release pins; the shared G4 APIs and follow-up fixes are released in v0.7.6–v0.7.9.
+- [x] G3 consumers use compatible remote `@lepsios/vue` releases; top-three consumers pin/accept v0.8.1 and the shared G4 APIs remain available from v0.7.6 onward.
 
 ### Steps (order)
 
