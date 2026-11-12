@@ -8,12 +8,12 @@ Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go 
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver now targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Root pin and lockfile target released v0.7.5; frozen install and production build pass against the tagged package. |
-| Concierge | Team, contacts, applications, and leads use the shared table. Local table implementation removed. Lead Kanban remains product-owned. AI provider configuration and usage report tables remain product-specific. |
+| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Local tag v0.7.5 is pinned; production build passes. |
+| Concierge | Module lists, AI provider configuration, and AI usage report use `CrmDataTable`; local table and `shad-cn` implementations are removed. Lead Kanban uses the shared shell; build passes. Typecheck still reports existing errors in the shared Vue package and dependencies. |
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. Shared `CrmPageFrame`, `CrmPageHeader`, and `CrmStateBlock` are used; shell build passes with Vue v0.7.5. |
 | Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. List/settings pages use `AdminPageHeader` and the shell uses `CrmPageFrame`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. Shell build passes with Vue v0.7.5. |
-| Yarmarka | All 15 module list pages use shared `CrmDataTable`; the local `src/components/ui/data-table/*` implementation was removed. URL/query filters, host pagination, API actions, and domain rules remain product-owned. Build/typecheck and clients/staff/orders browser smoke passed against local shared source; release tag v0.7.4 is available, and its consumer pin/clean-clone check remain for the final product-priority stage. |
+| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable; unused local helper copies are removed. Production builds pass. Typecheck reports existing shared Vue/dependency errors and the current installed package is still pinned to v0.7.5; the new G4 API requires the local v0.7.6 tag. |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.
 
@@ -27,7 +27,14 @@ Adoption commits are in the respective consumer repositories; see each repositor
   host adapters. Spending/Go Product adapter and view typecheck passes; the full
   shell production build passes with local `vue-lepsios` source. Clean-clone pins
   remain pending because the required source commits are not yet available on the
-  remote repositories.
+  remote repositories. Local annotated tag `api-keys-v0.1.2` points to the
+  implementation commit; it has not been pushed.
+
+- **G7 compare:** `g7-api-ux-compare.md` records that Go Product FAQ publishing
+  and Concierge FAQ suggestion moderation have different data and operations.
+  Concierge operator conversations and Yarmarka customer chat also have
+  different list and thread actions. Neither candidate passes the extraction
+  gate, so no FAQ or Conversations package was started.
 
 - **`@lepsios/crm-audit-log` 0.5.8**: the normalized audit DTO, query/page contract, injectable source, and shared view live under `packages/audit-log`. Concierge, Spending, Wishimi, and Go Product CRM use the shared view. Hosts own authentication, permission checks, route registration, and API mapping. Existing backend endpoints match the `go-lepsios/audit` response DTO. The package accepts `@lepsios/vue` 0.4.x and 0.5.x.
 - **`@lepsios/crm-team-members` 0.1.1**: the normalized read-only roster contract and source composable live under `packages/team-members`; the generic view lives in `vue-lepsios`. Concierge and Spending map their operator lists in host-owned adapters. Create, invite, role editing, and removal remain product-specific. The shared view searches and paginates the loaded list locally; only use it when the host list operation returns the complete roster. Wishimi users and Go Product customer accounts are end users, outside this operator-team module.

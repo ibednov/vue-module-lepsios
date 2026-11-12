@@ -4,7 +4,7 @@ Handoff for an implementing agent. **Work by goal** — finish one goal’s DoD 
 
 Inventory date: 2026-11-12.
 
-**Consumer execution priority (owner direction):** Wishimi, Spending, and Go Product first; Concierge second; Yarmarka third. Apply this order across goals while respecting the dependency graph below. Existing Yarmarka work is preserved, but remaining implementation and verification wait until the first two consumer groups are complete.
+**Consumer execution priority (owner direction):** Wishimi, Spending, and Go Product first; Concierge second; Yarmarka third. This order has been applied across the consumer integrations.
 
 **North star:** admin lists/settings look and behave the same across CRMs because they share `@lepsios/vue` + `@lepsios/crm-*`, not because backends/auth/lifecycles are unified.
 
@@ -17,13 +17,13 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Wishimi + Spending/Go Product use Vue 0.7.5; shared frames and list/settings headers integrated; shell frozen install + production build pass. Concierge/Yarmarka pending |
-| G2 One table | in progress; shared parity committed, Spending wrapper removed, Yarmarka migration local |
-| G3 One UI primitive source | Spending shell + Concierge local trees removed; Yarmarka pending; Concierge build passed against local Vue source |
-| G4 Shared helpers (C≡Y forks gone) | Concierge unused identical helper copies removed; shared replacements and Yarmarka cleanup pending |
-| G5 Table/Kanban shell | shared primitives + Go Product + Concierge integrations local; v0.7.5 release tag pending |
-| G6 Feature module: API keys | implementation complete locally; clean-clone pins pending |
-| G7 Later modules (gated) | blocked until API compare |
+| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Consumer production builds pass; manual route smoke remains unverified. |
+| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. Builds pass; clean typecheck and browser smoke remain open. |
+| G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
+| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; Yarmarka consumes them, unused duplicate helpers removed. Local release tag exists; consumer pin awaits remote availability. |
+| G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
+| G6 Feature module: API keys | Package 0.1.2 and Spending/Go Product adapters are committed; local package tag exists. Deployment pin is in the shell; remote clean-clone install awaits source availability. |
+| G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
 Update this table as goals complete (version tags, PRs).
 
@@ -86,14 +86,14 @@ Update this table as goals complete (version tags, PRs).
 
 ### DoD
 
-- [ ] Package exports one header (AdminPageHeader and/or alias `CrmPageHeader`: eyebrow, leading, title, description, actions).
-- [ ] Package exports one frame (AdminPage / `CrmPageFrame`: max-width + gutters).
-- [ ] Package exports `CrmStateBlock`: `loading` + `error` + **label props** + default/retry slots — no hardcoded `"Loading…"`.
-- [ ] Root exports fixed for anything hosts deep-import today (`CrmTeamMembersView`, `CrmAccessControlView`, Admin*).
-- [ ] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
-- [ ] Spending/Go Product/Concierge list pages use package chrome on migrated screens.
-- [ ] `@lepsios/vue` version + CHANGELOG; consumers pinned.
-- [ ] Smoke: Wishimi users + audit; one Concierge list header.
+- [x] Package exports one header (AdminPageHeader and/or alias `CrmPageHeader`: eyebrow, leading, title, description, actions).
+- [x] Package exports one frame (AdminPage / `CrmPageFrame`: max-width + gutters).
+- [x] Package exports `CrmStateBlock`: `loading` + `error` + **label props** + default/retry slots — no hardcoded `"Loading…"`.
+- [x] Root exports fixed for anything hosts deep-import today (`CrmTeamMembersView`, `CrmAccessControlView`, Admin*).
+- [x] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
+- [x] Spending/Go Product/Concierge/Yarmarka migrated list/settings screens use package chrome.
+- [x] `@lepsios/vue` version + CHANGELOG; G1 consumers pinned to v0.7.5.
+- [ ] Manual route smoke: Wishimi users + audit; one Concierge list header.
 
 ### Steps (order)
 
@@ -121,8 +121,8 @@ Table behavior, shad-cn deletion, new crm-* modules.
 
 ### DoD
 
-- [ ] Props/emits/slots matrix: Yarmarka `DataTable` vs `CrmDataTable` written in PR or vue-lepsios doc.
-- [ ] Parity implemented **in CrmDataTable** (no second table):
+- [x] Props/emits/slots capability matrix: Yarmarka `DataTable` vs `CrmDataTable` documented below.
+- [x] Parity implemented **in CrmDataTable** (no second table):
   - server search (first-class or documented `#toolbar` + helper)
   - multi-filter toolbar affordance (`CrmListToolbar` or recipe)
   - row selection + `createSelectColumn` helper
@@ -130,13 +130,13 @@ Table behavior, shad-cn deletion, new crm-* modules.
   - row-click ignores interactive controls
   - loading / error / empty / retry (error ≠ empty)
   - pagination labels; optional hide pagination
-- [ ] `AdminRowActions` exported and used for simple overflow menus where applicable.
-- [ ] Confirm path = package `ConfirmDialog` / `useConfirmDialog` (not ConfirmActionDialog).
-- [ ] Yarmarka: all module list pages on `CrmDataTable`; `src/components/ui/data-table/*` deleted.
-- [ ] Spending thin wrapper gone if 1:1.
-- [ ] Wishimi/Concierge/Go Product already on CrmDataTable stay; adopt new toolbar/helpers where duplicated.
-- [ ] `adoption-status.md`: Yarmarka table row updated.
-- [ ] Build/typecheck green on Yarmarka + one other consumer; smoke clients + staff + one more list.
+- [x] `AdminRowActions` exported and used for simple overflow menus where applicable.
+- [x] Confirm path = package `ConfirmDialog` / `useConfirmDialog` (not ConfirmActionDialog).
+- [x] Yarmarka: all module list pages on `CrmDataTable`; `src/components/ui/data-table/*` deleted.
+- [x] Spending thin wrapper gone if 1:1.
+- [x] Wishimi/Concierge/Go Product remain on `CrmDataTable`; duplicated toolbar/helpers were adopted where applicable.
+- [x] `adoption-status.md`: Yarmarka table row updated.
+- [ ] Build/typecheck green on Yarmarka + one other consumer; manual route smoke on clients + staff + another list. Production builds pass; current typecheck is blocked by existing shared-source and dependency errors, and no browser smoke was run.
 
 ### Steps (order)
 
@@ -153,14 +153,14 @@ Table behavior, shad-cn deletion, new crm-* modules.
 | --- | --- | --- | --- |
 | columns + data | yes | yes | — |
 | loading/error/empty texts | yes | yes | align names |
-| retry | yes | ? | add if missing |
-| server search | yes | toolbar? | first-class or recipe |
-| multi filters | yes | slot | toolbar helper |
-| selection + select column | yes | partial | port helper |
+| retry | yes | yes (`retryLabel` + `retry`) | — |
+| server search | yes | `#toolbar` recipe | host supplies search state |
+| multi filters | yes | `#toolbar` slot | host composes filters |
+| selection + select column | yes | yes (`createSelectColumn`) | — |
 | bulk actions | yes | yes | align labels |
 | row click + ignore controls | yes | yes | verify |
-| labels bag | DataTableLabels | scattered | optional type |
-| hide pagination | yes | ? | add if needed |
+| labels bag | DataTableLabels | individual label props | Yarmarka passes host labels |
+| hide pagination | yes | yes (`hidePagination`) | — |
 | meta pagination | external | CrmPagination | unify |
 
 ### Out of scope for G2
@@ -176,10 +176,10 @@ Full shad-cn tree delete (G3); kanban (G5); api-keys module (G6).
 ### DoD
 
 - [x] Concierge: no `~/components/shad-cn` imports in app/feature code; local tree removed (commit `7690174`).
-- [ ] Yarmarka: same.
-- [ ] alexbednov-crm shell: same; `src/components/shad-cn` removed.
-- [ ] Builds green; product packages don’t need shell shad-cn aliases.
-- [ ] Pins aligned on one `@lepsios/vue` tag.
+- [x] Yarmarka: same (commit `1ad4dd5`).
+- [x] alexbednov-crm shell: same; `src/components/shad-cn` removed (commit `c3efb39`; stale aliases cleaned in `b767c8e`).
+- [x] Builds green; product packages don’t need shell shad-cn aliases.
+- [x] G3 consumers use the same `@lepsios/vue` v0.7.5 tag; new G4 APIs are released as v0.7.6.
 
 ### Steps (order)
 
@@ -215,10 +215,10 @@ ui/dashboard/*, ui/animate/*     → defer unless second non-C/Y consumer needs 
 
 ### DoD
 
-- [ ] Priority helpers live in vue-lepsios and are exported.
-- [ ] Concierge + Yarmarka import package; local copies deleted for migrated set.
-- [ ] ConfirmActionDialog gone both sides.
-- [ ] Version + CHANGELOG.
+- [x] Priority helpers live in vue-lepsios and are exported (`CrmEntityNavigation`, `FieldTagsInput`, `runBulkAction`; shared pagination and clipboard utility already existed).
+- [x] Yarmarka imports the shared helpers; unused local pagination, clipboard, and duplicate helper files were removed. Concierge's matching obsolete common/crypto/table helpers were removed.
+- [x] ConfirmActionDialog gone both sides.
+- [x] Vue version 0.7.6 + CHANGELOG and local `v0.7.6` tag.
 
 ### Steps
 
@@ -288,7 +288,9 @@ Wishimi-only settings; full auth product.
 
 ## G7 — Later feature modules (gated)
 
-Start **only** after a short API/UX compare doc under `docs/`.
+Start **only** after a short API/UX compare doc under `docs/`. The compare is
+complete in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); both candidates
+remain product-owned because their contracts do not match.
 
 | Candidate | Consumers | Gate |
 | --- | --- | --- |
