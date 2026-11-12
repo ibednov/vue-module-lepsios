@@ -93,7 +93,7 @@ Update this table as goals complete (version tags, PRs).
 - [x] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
 - [x] Spending/Go Product/Concierge/Yarmarka migrated list/settings screens use package chrome.
 - [x] `@lepsios/vue` version + CHANGELOG; consumers use supported v0.7.x releases (shell v0.7.8, Concierge v0.7.8, Yarmarka v0.7.9; Wishimi and standalone feature repos declare compatible peer ranges).
-- [ ] Manual route smoke: Wishimi users + audit; one Concierge list header.
+- [ ] Manual authenticated route smoke: Wishimi `/wishimi/users/` + `/wishimi/audit/`; Concierge `/leads/` header. Requires the app and API with an authenticated browser session.
 
 ### Steps (order)
 
@@ -141,7 +141,7 @@ The shared package source and label/slot contract in `ui-contract.md`.
 - [x] Wishimi/Concierge/Go Product remain on `CrmDataTable`; duplicated toolbar/helpers were adopted where applicable.
 - [x] `adoption-status.md`: Yarmarka table row updated.
 - [x] Build/typecheck green on Yarmarka + one other consumer. Yarmarka pins Vue v0.7.9; its frozen-lockfile install, production build, and typecheck pass.
-- [ ] Manual route smoke on clients + staff + another list. No browser smoke was run.
+- [ ] Manual authenticated route smoke on Yarmarka `/clients/`, `/staff/`, and `/orders/`. No smoke was run: only Yarmarka Vite is available on port 6002; its API backend on 6001 and an authenticated browser/CDP session are unavailable. A login-wall/SPA-shell response is not sufficient evidence.
 
 ### Steps (order)
 
