@@ -18,7 +18,7 @@ Inventory date: 2026-11-12.
 | --- | --- |
 | G0 Context locked | reference |
 | G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Consumer production builds pass; manual route smoke remains unverified. |
-| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Production builds pass; Spending shell typecheck passes against local Vue 0.7.8, while pinned consumers still need remote package availability. Browser smoke remains open. |
+| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Production builds pass; Spending shell and Concierge typechecks pass against local Vue 0.7.8. Yarmarka still needs the remote G4 release pin. Browser smoke remains open. |
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7 and 0.7.8. Yarmarka consumes the helpers and obsolete C/Y helper forks are removed; consumer pin awaits remote availability. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
