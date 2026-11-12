@@ -345,8 +345,8 @@ write contract.
 
 | Candidate | Consumers | Gate |
 | --- | --- | --- |
-| FAQ | Go Product, Concierge | list/create/edit/reorder fields match enough |
-| Conversations | Concierge, Yarmarka chat | list/thread + reuse ChatShell |
+| FAQ | Go Product, Concierge | **Fail**: publishing FAQ content and moderating generated suggestions use different fields and operations; see compare |
+| Conversations | Concierge, Yarmarka chat | **Fail**: operator inbox workflows and customer support chat have different list/thread actions; see compare |
 | Staff **writes** | Concierge create, Yarmarka staff/roles, Spending staff | explicit write contract — do not overload read-only team-members |
 | `useCrmListQuery` | all list pages | only if boilerplate still hurts after G2 |
 | Feature-flags / auth-recovery | Wishimi only | **no** extract until 2nd product |
