@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Declare compatibility with `@lepsios/vue` 0.7.x.
+
 ## 0.1.0
 
 - Add product-neutral API key contract, Vue state, and optional list/create/revoke view.
