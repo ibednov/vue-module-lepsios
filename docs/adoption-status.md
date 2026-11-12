@@ -1,6 +1,6 @@
 # CRM UI reuse status
 
-Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
+Updated 2026-11-13. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
 
 ## Shared table
 
@@ -27,11 +27,11 @@ Compared the removed `src/components/ui/data-table/data-table.vue` and
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Production build and typecheck pass when Vite/TypeScript resolve local Vue 0.7.8 source. The package pin remains v0.7.5, so the default pinned typecheck still reports old Vue source errors. |
+| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Vue v0.7.8 is pinned and locked; frozen-lockfile install, production build, and typecheck pass. User-local phone-select/audit-log changes remain uncommitted. |
 | Concierge | Module lists, AI provider configuration, and AI usage report use `CrmDataTable`; local table and `shad-cn` implementations are removed. Lead Kanban uses the shared shell. Production build and typecheck pass with the local Vue source; the normal v0.7.5 pin reports old shared-package errors. |
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
-| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. Shared `CrmPageFrame`, `CrmPageHeader`, and `CrmStateBlock` are used; shell build passes with Vue v0.7.5. |
-| Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. List/settings pages use `AdminPageHeader` and the shell uses `CrmPageFrame`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. Shell build passes with Vue v0.7.5. |
+| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. Shared `CrmPageFrame`, `CrmPageHeader`, and `CrmStateBlock` are used. Standalone and shell package changes are pushed; shell validation passes with pinned Vue v0.7.8. |
+| Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. List/settings pages use `AdminPageHeader` and the shell uses `CrmPageFrame`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. Shell build and typecheck pass with pinned Vue v0.7.8. |
 | Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable; unused local pagination, clipboard, and utility files are removed. Production builds pass. The installed package remains pinned to v0.7.5; G4 exports are in local v0.7.6 and follow-up typing fixes in v0.7.7/v0.7.8. PhoneSelect now imports from its Vue entry point (commit `47d2bc0`). |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.

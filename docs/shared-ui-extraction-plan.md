@@ -17,12 +17,12 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Consumer production builds pass; manual route smoke remains unverified. |
-| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Production builds pass; Spending shell and Concierge typechecks pass against local Vue 0.7.8. Yarmarka still needs the remote G4 release pin. Browser smoke remains open. |
+| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell production build and typecheck pass with the remote Vue v0.7.8 pin; manual route smoke remains unverified. |
+| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Spending shell build and typecheck pass with pinned Vue v0.7.8; Yarmarka still needs the remote G4 release pin. Browser smoke remains open. |
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
-| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7 and 0.7.8. Yarmarka consumes the helpers and obsolete C/Y helper forks are removed; consumer pin awaits remote availability. |
+| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7 and 0.7.8. Vue v0.7.6–v0.7.8 tags are pushed. Spending shell pins v0.7.8; Yarmarka still needs its release pin. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
-| G6 Feature module: API keys | Package 0.1.2 and Spending/Go Product adapters are committed; local package tag exists. Deployment pin is in the shell; remote clean-clone install awaits source availability. |
+| G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. Spending shell frozen-lockfile install, production build, and typecheck pass with Vue v0.7.8 and API Keys v0.1.2. Fresh-clone vendor install and manual route smoke remain open. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
 Update this table as goals complete (version tags, PRs).
@@ -140,7 +140,7 @@ The shared package source and label/slot contract in `ui-contract.md`.
 - [x] Spending thin wrapper gone if 1:1.
 - [x] Wishimi/Concierge/Go Product remain on `CrmDataTable`; duplicated toolbar/helpers were adopted where applicable.
 - [x] `adoption-status.md`: Yarmarka table row updated.
-- [ ] Build/typecheck green on Yarmarka + one other consumer; manual route smoke on clients + staff + another list. Production builds pass. Spending shell typecheck passes against local Vue 0.7.8; Yarmarka's installed v0.7.5 lacks G4 exports and reports other baseline typing errors. No browser smoke was run.
+- [ ] Build/typecheck green on Yarmarka + one other consumer; manual route smoke on clients + staff + another list. Spending shell build and typecheck pass with the pushed Vue v0.7.8 release pin. Yarmarka's installed v0.7.5 lacks G4 exports and reports other baseline typing errors. No browser smoke was run.
 
 ### Steps (order)
 
