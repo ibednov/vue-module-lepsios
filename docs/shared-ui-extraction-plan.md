@@ -18,7 +18,7 @@ Inventory date: 2026-11-12.
 | --- | --- |
 | G0 Context locked | reference |
 | G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Consumer production builds pass; manual route smoke remains unverified. |
-| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. Builds pass; clean typecheck and browser smoke remain open. |
+| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Builds pass; clean typecheck and browser smoke remain open. |
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; Yarmarka consumes them, unused duplicate helpers removed. Local release tag exists; consumer pin awaits remote availability. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
@@ -113,6 +113,10 @@ Update this table as goals complete (version tags, PRs).
 
 Table behavior, shad-cn deletion, new crm-* modules.
 
+### Depends on
+
+The shared package source and label/slot contract in `ui-contract.md`.
+
 ---
 
 ## G2 — One table (`CrmDataTable` only)
@@ -121,7 +125,7 @@ Table behavior, shad-cn deletion, new crm-* modules.
 
 ### DoD
 
-- [x] Props/emits/slots capability matrix: Yarmarka `DataTable` vs `CrmDataTable` documented below.
+- [x] Props/emits/models/slots migration matrix: Yarmarka `DataTable` vs `CrmDataTable` in `adoption-status.md`.
 - [x] Parity implemented **in CrmDataTable** (no second table):
   - server search (first-class or documented `#toolbar` + helper)
   - multi-filter toolbar affordance (`CrmListToolbar` or recipe)
@@ -167,6 +171,11 @@ Table behavior, shad-cn deletion, new crm-* modules.
 
 Full shad-cn tree delete (G3); kanban (G5); api-keys module (G6).
 
+### Depends on
+
+Shared table API and host-owned list/query state. G1 chrome can be adopted
+independently; G3–G5 use the completed G1/G2 surface.
+
 ---
 
 ## G3 — One UI primitive source (no local shad-cn)
@@ -191,6 +200,11 @@ Full shad-cn tree delete (G3); kanban (G5); api-keys module (G6).
 ### Depends on
 
 G1/G2 ideally underway so new code doesn’t reintroduce local primitives. Can partially overlap G2 on Yarmarka.
+
+### Out of scope
+
+Rewriting product-specific compositions, editors, charts, or business controls
+when only their underlying primitive is shared.
 
 ---
 
@@ -230,6 +244,11 @@ ui/dashboard/*, ui/animate/*     → defer unless second non-C/Y consumer needs 
 
 G2 confirm path; G3 makes imports consistent.
 
+### Out of scope
+
+Product-specific markdown editing, date rules, chart compositions, and entity
+data/navigation policy.
+
 ---
 
 ## G5 — Table / Kanban shell (same switch UX)
@@ -245,13 +264,17 @@ G2 confirm path; G3 makes imports consistent.
 
 ### Steps
 
-1. [x] Add primitives in vue-lepsios (local 0.7.5 commit; release tag pending).
+1. [x] Add primitives in vue-lepsios (v0.7.5; release tag available).
 2. [x] Wire Concierge `@leads/pages/index.vue` (commit `5bc539a`).
 3. [x] Wire Go Product `commercial-proposals/pages/index.vue`.
 
 ### Depends on
 
 G1 chrome optional; G2 table for table mode.
+
+### Out of scope
+
+Status enums, permissions, drag/drop policy, API operations, and card content.
 
 ---
 
@@ -291,6 +314,34 @@ Wishimi-only settings; full auth product.
 Start **only** after a short API/UX compare doc under `docs/`. The compare is
 complete in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); both candidates
 remain product-owned because their contracts do not match.
+
+**Outcome:** later modules start only when at least two products share the same
+operator workflow, data contract, and core operations. Current comparisons fail
+that gate, so no FAQ or Conversations module is extracted.
+
+### DoD
+
+- [x] FAQ API/UX compare records fields and list/create/edit/reorder or moderation operations.
+- [x] Conversations API/UX compare records list, thread, message, and operator actions.
+- [x] Gate decision is documented for each candidate; failed candidates remain product-owned.
+- [x] No module was started for a candidate that failed its gate.
+
+### Steps
+
+1. Compare the concrete consumer APIs and screens before implementation.
+2. Record matching and divergent fields, operations, and state transitions.
+3. Start a package only for candidates whose shared workflow passes the gate; otherwise document the decision and stop that candidate.
+
+### Depends on
+
+At least two concrete consumers and an API/UX comparison. `useCrmListQuery`
+also depends on evidence that boilerplate remains after G2.
+
+### Out of scope
+
+Merging incoming requests/leads/inquiries by name, extracting auth recovery or
+feature flags for one consumer, and extracting staff writes without a shared
+write contract.
 
 | Candidate | Consumers | Gate |
 | --- | --- | --- |
@@ -336,12 +387,11 @@ bun run build
 
 ```text
 G0 read
-  └─ G1 chrome ─────────────────────────────┐
-  └─ G2 table ─── G3 shad-cn kill            ├─ identical UI
-       │              └─ G4 helper forks ───┘
-       └─ G5 kanban (after G2 table mode)
-  G6 api-keys (parallel after G1 optional)
-  G7 gated modules
+  ├─ G1 chrome ─┐
+  ├─ G2 table ──┴─> G3 shared UI source ──> G4 shared helpers
+  │              └───────────────────────> G5 table/Kanban shell
+  ├─ G6 API keys (parallel after API compare)
+  └─ G7 later modules (each candidate gated by API/UX compare)
 ```
 
 Ship **goal-sized** PRs (or goal slices). Prefer completing G1 then G2 before large Yarmarka delete. G6 can run parallel once contract is clear.

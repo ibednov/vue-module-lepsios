@@ -6,6 +6,25 @@ Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go 
 
 `CrmDataTable` in `vue-lepsios` is the shared table implementation. Product screens keep their API calls, search/filter state, permissions, translations, columns, and domain actions; server pagination stays in each host.
 
+### Yarmarka table API migration matrix
+
+Compared the removed `src/components/ui/data-table/data-table.vue` and
+`data-table-types.ts` with `CrmDataTable` in `vue-lepsios`.
+
+| Old Yarmarka API | Shared API | Migration |
+| --- | --- | --- |
+| Props: `columns`, `data` | Props: `columns`, `data` | Direct |
+| `searchKey`, `searchPlaceholder`, `globalSearch`, `serverSearch`; `v-model:search`; `searchChange` | `#toolbar` slot; host-owned query state | Product search controls stay in each page; server/client filtering remains host-owned |
+| `isFilterable`, `filterData`, `isFilterOptionDefault`; `filterValue`, `filterValues`; `filterChange` | `#toolbar` slot | Hosts render the filters and own their state/query mapping |
+| `hidePagination` | `hidePagination` | Direct |
+| `selectable`, `rowIdKey`; `v-model:rowSelection` | `selectedIds`, `getRowId`; `v-model:rowSelection`; `createSelectColumn` | Column selection and ID mapping use shared API |
+| `DataTableBulkAction { label, icon?, variant?, onClick(ids) }` | `CrmBulkAction { key, label, variant?, confirmTitle?, confirmDescription?, confirmLabel?, cancelLabel? }`; `bulkAction({ key, ids })` | Host maps the stable action key to its operation; optional confirmation is shared |
+| `labels: DataTableLabels` bag | `emptyText`, `loadingText`, `retryLabel`, `previousLabel`, `nextLabel`, `bulkActionsLabel`, selection and pagination label props | Host labels are passed as individual props/callbacks |
+| `rowClickable`; `rowClick(row)` | `rowClick({ event, row })` | Shared component skips interactive controls; host reads the row from payload |
+| `loading`, `errorMessage`; `retry` | `loading`, `error`, `retryLabel`; `retry` | Error remains distinct from empty state |
+| No public content slots | `#toolbar`, `#error`, `#empty`, `#cell:<columnId>` | Additive host composition points |
+| No pagination metadata model | `meta: PaginationMeta`; `pageChange(page)` | Host maps API pagination to shared metadata |
+
 | CRM | Adoption |
 | --- | --- |
 | Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Local tag v0.7.5 is pinned; production build passes. |
