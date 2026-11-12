@@ -8,11 +8,11 @@ Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go 
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver now targets `@lepsios/vue/components/ui/*`. Production build passes with the local Vue source. The manifest remains pinned to released v0.7.4; local G5 primitives require the pending v0.7.5 release tag. |
+| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver now targets `@lepsios/vue/components/ui/*`. Spending and Go Product layouts use shared `CrmPageFrame`; list/settings page headers use `AdminPageHeader`. Root pin and lockfile target released v0.7.5; frozen install and production build pass against the tagged package. |
 | Concierge | Team, contacts, applications, and leads use the shared table. Local table implementation removed. Lead Kanban remains product-owned. AI provider configuration and usage report tables remain product-specific. |
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
-| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. The package consumes `CrmDataTable` from `vue-lepsios`. |
-| Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. |
+| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. Shared `CrmPageFrame`, `CrmPageHeader`, and `CrmStateBlock` are used; shell build passes with Vue v0.7.5. |
+| Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. List/settings pages use `AdminPageHeader` and the shell uses `CrmPageFrame`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. Shell build passes with Vue v0.7.5. |
 | Yarmarka | All 15 module list pages use shared `CrmDataTable`; the local `src/components/ui/data-table/*` implementation was removed. URL/query filters, host pagination, API actions, and domain rules remain product-owned. Build/typecheck and clients/staff/orders browser smoke passed against local shared source; release tag v0.7.4 is available, and its consumer pin/clean-clone check remain for the final product-priority stage. |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.
@@ -37,7 +37,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 ## Remaining work
 
 1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. `@lepsios/vue` 0.7.4 is available from its remote release tag. The Spending shell and Wishimi peer ranges now target 0.7.x. G5 adds local 0.7.5 primitives, used through the local development symlink; v0.7.5 has no remote tag yet. Concierge and Yarmarka still need consumer adoption. Verify clean-clone installs and production builds after those integrations land and the required shared release is available.
+2. `@lepsios/vue` 0.7.5 is available from its remote release tag. Wishimi, Spending, and Go Product peer ranges accept 0.7.x; the Spending shell lockfile uses the released tag. Concierge and Yarmarka still need consumer adoption. Verify their clean-clone installs and production builds after those integrations land.
 3. Verify consumer frozen installs and production builds from clean clones after their workspace lockfiles and pinned source tags are current; that work belongs to the consumer repositories.
 4. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
 5. Compare incoming-request workflows with concrete API operations before defining a module name or model.

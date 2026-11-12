@@ -17,7 +17,7 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Wishimi + Spending/Go Product on Vue 0.7.4; Concierge/Yarmarka pending |
+| G1 One page chrome | Wishimi + Spending/Go Product use Vue 0.7.5; shared frames and list/settings headers integrated; shell frozen install + production build pass. Concierge/Yarmarka pending |
 | G2 One table | in progress; shared parity committed, Spending wrapper removed, Yarmarka migration local |
 | G3 One UI primitive source | Spending shell + Concierge local trees removed; Yarmarka pending; Concierge build passed against local Vue source |
 | G4 Shared helpers (C≡Y forks gone) | Concierge unused identical helper copies removed; shared replacements and Yarmarka cleanup pending |
