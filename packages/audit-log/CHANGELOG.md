@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.9
+
+- Accept the shared Vue component package 0.7.x.
+
 ## 0.5.8
 
 - Pass the shared table's `previousLabel` prop so the previous-page label is shown.
