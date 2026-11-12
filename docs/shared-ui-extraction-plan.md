@@ -19,9 +19,9 @@ Inventory date: 2026-11-12.
 | G0 Context locked | reference |
 | G1 One page chrome | Wishimi + Spending/Go Product on Vue 0.7.4; Concierge/Yarmarka pending |
 | G2 One table | in progress; shared parity committed, Spending wrapper removed, Yarmarka migration local |
-| G3 One UI primitive source | Spending shell local tree removed; Concierge/Yarmarka pending |
-| G4 Shared helpers (C≡Y forks gone) | todo |
-| G5 Table/Kanban shell | shared primitives and Go Product integration local; Concierge pending |
+| G3 One UI primitive source | Spending shell + Concierge local trees removed; Yarmarka pending; Concierge build passed against local Vue source |
+| G4 Shared helpers (C≡Y forks gone) | Concierge unused identical helper copies removed; shared replacements and Yarmarka cleanup pending |
+| G5 Table/Kanban shell | shared primitives + Go Product + Concierge integrations local; v0.7.5 release tag pending |
 | G6 Feature module: API keys | implementation complete locally; clean-clone pins pending |
 | G7 Later modules (gated) | blocked until API compare |
 
@@ -175,7 +175,7 @@ Full shad-cn tree delete (G3); kanban (G5); api-keys module (G6).
 
 ### DoD
 
-- [ ] Concierge: no `~/components/shad-cn` imports in app/feature code.
+- [x] Concierge: no `~/components/shad-cn` imports in app/feature code; local tree removed (commit `7690174`).
 - [ ] Yarmarka: same.
 - [ ] alexbednov-crm shell: same; `src/components/shad-cn` removed.
 - [ ] Builds green; product packages don’t need shell shad-cn aliases.
@@ -240,13 +240,13 @@ G2 confirm path; G3 makes imports consistent.
 
 - [x] `CrmViewToggle`: `modelValue: 'table' | 'kanban'`, label props.
 - [x] `CrmKanbanBoard`: column/card slots only — **no** status API/drag policy required in v1.
-- [ ] Both host pages refactored; behavior preserved (Go Product complete; Concierge pending).
+- [x] Both host pages refactored; behavior preserved (Go Product and Concierge; Concierge commit `5bc539a` for leads shell, `7690174` for shared UI migration).
 - [x] Exported + CHANGELOG.
 
 ### Steps
 
 1. [x] Add primitives in vue-lepsios (local 0.7.5 commit; release tag pending).
-2. Wire Concierge `@leads/pages/index.vue`.
+2. [x] Wire Concierge `@leads/pages/index.vue` (commit `5bc539a`).
 3. [x] Wire Go Product `commercial-proposals/pages/index.vue`.
 
 ### Depends on
