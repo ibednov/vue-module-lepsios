@@ -1,6 +1,6 @@
-# First-wave CRM reuse status
+# CRM UI reuse status
 
-Updated 2026-10-25. Scope is Concierge CRM, Spending CRM, Wishimi CRM, and Go Product CRM. `edu-markdown-test` remains a reference only; Yarmarka is outside this wave.
+Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
 
 ## Shared table
 
@@ -12,17 +12,21 @@ Updated 2026-10-25. Scope is Concierge CRM, Spending CRM, Wishimi CRM, and Go Pr
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. The package consumes `CrmDataTable` from `vue-lepsios`. |
 | Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. |
+| Yarmarka | All 15 module list pages use shared `CrmDataTable`; the local `src/components/ui/data-table/*` implementation was removed. URL/query filters, host pagination, API actions, and domain rules remain product-owned. Build/typecheck and clients/staff/orders browser smoke pass against the local shared source. The committed `@lepsios/vue` pin is pending the owner release tag. |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.
 
 ## Feature module adoption
 
-- **`@lepsios/crm-api-keys` 0.1.0**: the normalized list/create/revoke contract,
+- **`@lepsios/crm-api-keys` 0.1.2**: the normalized list/create/revoke contract,
   state composable, and optional view live under `packages/api-keys`. Spending
   and Go Product APIs were compared: both return the one-time secret only on
   create, while owner scope, auth, error mapping, snippet headers, and post-revoke
-  refresh policy stay host-owned. Consumer page migration and build verification
-  are pending the shared package pin.
+  refresh policy stay host-owned. Both consumer pages now use the shared view and
+  host adapters. Spending/Go Product adapter and view typecheck passes; the full
+  shell production build passes with local `vue-lepsios` source. Clean-clone pins
+  remain pending because the required source commits are not yet available on the
+  remote repositories.
 
 - **`@lepsios/crm-audit-log` 0.5.8**: the normalized audit DTO, query/page contract, injectable source, and shared view live under `packages/audit-log`. Concierge, Spending, Wishimi, and Go Product CRM use the shared view. Hosts own authentication, permission checks, route registration, and API mapping. Existing backend endpoints match the `go-lepsios/audit` response DTO. The package accepts `@lepsios/vue` 0.4.x and 0.5.x.
 - **`@lepsios/crm-team-members` 0.1.1**: the normalized read-only roster contract and source composable live under `packages/team-members`; the generic view lives in `vue-lepsios`. Concierge and Spending map their operator lists in host-owned adapters. Create, invite, role editing, and removal remain product-specific. The shared view searches and paginates the loaded list locally; only use it when the host list operation returns the complete roster. Wishimi users and Go Product customer accounts are end users, outside this operator-team module.
@@ -32,9 +36,10 @@ Adoption commits are in the respective consumer repositories; see each repositor
 ## Remaining work
 
 1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. Verify consumer frozen installs and production builds from clean clones after their workspace lockfiles and pinned source SHAs are current; that work belongs to the consumer repositories.
-3. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
-4. Compare incoming-request workflows with concrete API operations before defining a module name or model.
+2. `@lepsios/vue` 0.7.3 has local shared commits, but no matching remote release tag exists. Yarmarka's package/lock pin and clean-clone install/build remain pending that release; no future tag or SHA is pinned.
+3. Verify consumer frozen installs and production builds from clean clones after their workspace lockfiles and pinned source tags are current; that work belongs to the consumer repositories.
+4. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
+5. Compare incoming-request workflows with concrete API operations before defining a module name or model.
 
 ## Verification and delivery
 

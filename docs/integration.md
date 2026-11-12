@@ -18,7 +18,13 @@ state composable, and optional table/dialog view. Spending and Go Product both
 create a key with a label and receive its secret only in that create response.
 Their adapters retain different owner scopes, auth flows, endpoint URLs, error
 localization, and snippet headers. The list contract intentionally has no
-secret field.
+secret field. Their CRM pages now use `CrmApiKeysView` through host-owned source
+adapters: Spending keeps its Telegram owner selector and usage refresh behavior;
+Go Product keeps its admin permission gate and login redirect. A production
+build of the shell and a targeted typecheck of both adapters and the shared view
+passed against the local `vue-lepsios` source. The `api-keys` package supports
+`@lepsios/vue` 0.5.x, 0.6.x, and 0.7.x. Clean-clone installation still requires
+the referenced source commits to be available remotely.
 
 ## Installing nested packages before registry publication
 
