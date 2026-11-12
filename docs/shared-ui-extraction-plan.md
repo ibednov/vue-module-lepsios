@@ -17,8 +17,8 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell production build and typecheck pass with the remote Vue v0.7.8 pin; manual route smoke remains unverified. |
-| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Spending shell build and typecheck pass with pinned Vue v0.7.8; Yarmarka still needs the remote G4 release pin. Browser smoke remains open. |
+| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell and Concierge builds/typechecks pass with remote Vue v0.7.8; manual route smoke remains unverified. |
+| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Spending shell and Concierge build/typecheck pass with pinned Vue v0.7.8; Yarmarka still needs the remote G4 release pin. Browser smoke remains open. |
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7 and 0.7.8. Vue v0.7.6–v0.7.8 tags are pushed. Spending shell pins v0.7.8; Yarmarka still needs its release pin. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
