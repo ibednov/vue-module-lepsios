@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Import the shared data table from its component path to keep the feature module's dependency graph focused.
+
 ## 0.1.1
 
 - Declare compatibility with `@lepsios/vue` 0.7.x.

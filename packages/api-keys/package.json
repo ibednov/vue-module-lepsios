@@ -1,6 +1,6 @@
 {
   "name": "@lepsios/crm-api-keys",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "Reusable CRM API key contract, Vue state, and view",
   "license": "PolyForm-Noncommercial-1.0.0",

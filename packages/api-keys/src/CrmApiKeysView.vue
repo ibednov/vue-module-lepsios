@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, h, onMounted, ref } from 'vue'
-import { CrmDataTable } from '@lepsios/vue'
+import CrmDataTable from '@lepsios/vue/components/admin/crm-data-table.vue'
 import type { ColumnDef } from '@tanstack/vue-table'
 import { Badge } from '@lepsios/vue/components/ui/badge'
 import { Button } from '@lepsios/vue/components/ui/button'
