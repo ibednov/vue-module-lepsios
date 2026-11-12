@@ -6,7 +6,7 @@ Inventory date: 2026-11-12.
 
 **Consumer execution priority (owner direction):** Wishimi, Spending, and Go Product first; Concierge second; Yarmarka third. This order has been applied across the consumer integrations.
 
-**North star:** admin lists/settings look and behave the same across CRMs because they share `@lepsios/vue` + `@lepsios/crm-*`, not because backends/auth/lifecycles are unified.
+**North star (owner clarification, 2026-11-13):** every CRM admin uses one canonical visual/UI package, `@lepsios/vue`, for shell, breadcrumbs, page frame/header, state blocks, tables, primitives, and reusable visual components. Current Wishimi styling is not canonical; visual rules are defined in `vue-lepsios`. `@lepsios/crm-*` are optional domain feature modules that compose this UI package. Hosts retain routes, copy/i18n, data, permissions, API adapters, and product-specific workflows/forms.
 
 **Not goals:** mega-CRM app, shared auth/DB, one status enum, npm publish (owner only).
 
@@ -17,11 +17,11 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Spending shell and Concierge builds/typechecks pass with Vue v0.7.8; Yarmarka passes with v0.7.9. Manual route smoke remains unverified. |
-| G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Spending shell, Concierge, and Yarmarka production builds and typechecks pass on their remote Vue pins. Manual route smoke remains open. |
-| G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees and imports removed; production builds pass. Shell pins Vue v0.7.8, Concierge v0.7.8, and Yarmarka v0.7.9. |
+| G1 One page chrome | Core consumers use shared headers/frames/states; Wishimi (standalone + shell), Spending, and CRM shell layouts now use shared `AdminShell`/breadcrumbs from Vue v0.8.0. Product migration/build verification in progress; manual route smoke remains unverified. |
+| G2 One table | Shared parity and planned list migrations are committed; Go Product account/FAQ tables are being migrated to `CrmDataTable` (including shared mobile-card slot). Verify canonical Go Product and shell copies before marking complete. Manual route smoke remains open. |
+| G3 One UI primitive source | Local `shad-cn` trees are removed from migrated consumers. Top-three admin shells now resolve shared primitives from `@lepsios/vue` v0.8.0; final consumer builds and package pins in progress. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Vue v0.7.6–v0.7.9 tags are pushed. Yarmarka pins v0.7.9 and consumes the shared helpers. |
-| G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
+| G5 Table/Kanban shell | Shared Kanban/table shell is available; Go Product's remaining list tables are being brought onto the shared table component. |
 | G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone vendored API Keys v0.1.2 from the configured remote ref and passed frozen-lockfile install. Spending shell production build and typecheck pass with Vue v0.7.8. Manual route smoke remains open. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 

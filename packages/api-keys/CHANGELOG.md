@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Accept the shared Vue component package 0.8.x.
+
 ## 0.1.2
 
 - Import the shared data table from its component path to keep the feature module's dependency graph focused.

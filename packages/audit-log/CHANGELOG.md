@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.10
+
+- Accept the shared Vue component package 0.8.x.
+
 ## 0.5.9
 
 - Accept the shared Vue component package 0.7.x.
