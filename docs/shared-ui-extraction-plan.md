@@ -22,7 +22,7 @@ Inventory date: 2026-11-12.
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Vue v0.7.6–v0.7.9 tags are pushed. Yarmarka pins v0.7.9 and consumes the shared helpers. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
-| G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. Spending shell frozen-lockfile install, production build, and typecheck pass with Vue v0.7.8 and API Keys v0.1.2. Fresh-clone vendor install and manual route smoke remain open. |
+| G6 Feature module: API keys | API Keys v0.1.2 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone vendored API Keys v0.1.2 from the configured remote ref and passed frozen-lockfile install. Spending shell production build and typecheck pass with Vue v0.7.8. Manual route smoke remains open. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
 Update this table as goals complete (version tags, PRs).

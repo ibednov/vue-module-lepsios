@@ -34,7 +34,7 @@ Compared the removed `src/components/ui/data-table/data-table.vue` and
 | Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. List/settings pages use `AdminPageHeader` and the shell uses `CrmPageFrame`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. Shell build and typecheck pass with pinned Vue v0.7.8. |
 | Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable; unused local pagination, clipboard, and utility files are removed. Vue v0.7.9 is pinned; frozen-lockfile install, production build, and typecheck pass. PhoneSelect imports from its Vue entry point (commit `47d2bc0`). Manual route smoke remains open. |
 
-Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.
+Adoption commits are in the respective consumer repositories; see each repository's commit history. A fresh Spending shell clone successfully vendored API Keys v0.1.2 from its pinned module ref and installed from the lockfile. No service deployment was performed.
 
 ## Feature module adoption
 
