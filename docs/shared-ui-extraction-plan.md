@@ -17,7 +17,7 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | implementation done; release pin pending |
+| G1 One page chrome | Wishimi + Spending/Go Product on Vue 0.7.4; Concierge/Yarmarka pending |
 | G2 One table | in progress; shared parity committed, Yarmarka migration underway |
 | G3 One UI primitive source | todo |
 | G4 Shared helpers (C≡Y forks gone) | todo |

@@ -12,7 +12,7 @@ Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go 
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. The package consumes `CrmDataTable` from `vue-lepsios`. |
 | Go Product CRM | Inquiries and commercial proposals use `CrmDataTable`. FAQ ordering and customer account management keep their product-specific tables: FAQ rows are ordered/edited in place, while accounts combine role/activation mutations with a separate mobile card layout. |
-| Yarmarka | All 15 module list pages use shared `CrmDataTable`; the local `src/components/ui/data-table/*` implementation was removed. URL/query filters, host pagination, API actions, and domain rules remain product-owned. Build/typecheck and clients/staff/orders browser smoke pass against the local shared source. The committed `@lepsios/vue` pin is pending the owner release tag. |
+| Yarmarka | All 15 module list pages use shared `CrmDataTable`; the local `src/components/ui/data-table/*` implementation was removed. URL/query filters, host pagination, API actions, and domain rules remain product-owned. Build/typecheck and clients/staff/orders browser smoke passed against local shared source; release tag v0.7.4 is available, and its consumer pin/clean-clone check remain for the final product-priority stage. |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. Clean clone and deployment verification remain tracked in those repositories.
 
@@ -36,7 +36,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 ## Remaining work
 
 1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. `@lepsios/vue` 0.7.3 has local shared commits, but no matching remote release tag exists. Yarmarka's package/lock pin and clean-clone install/build remain pending that release; no future tag or SHA is pinned.
+2. `@lepsios/vue` 0.7.4 is available from its remote release tag. The Spending shell and Wishimi peer ranges now target 0.7.x; Concierge and Yarmarka still need consumer adoption. Verify clean-clone installs and production builds after those integrations land.
 3. Verify consumer frozen installs and production builds from clean clones after their workspace lockfiles and pinned source tags are current; that work belongs to the consumer repositories.
 4. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
 5. Compare incoming-request workflows with concrete API operations before defining a module name or model.
