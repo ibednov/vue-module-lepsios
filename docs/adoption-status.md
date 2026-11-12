@@ -27,14 +27,14 @@ Compared the removed `src/components/ui/data-table/data-table.vue` and
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. CRM shell, Spending, and Wishimi layouts use shared `AdminShell`; headers, breadcrumbs, frames and list/settings components are shared. Vue v0.8.1 is pinned and locked; frozen-lockfile install, production build, typecheck, and local-sibling dev build pass. User-local phone-select change remains uncommitted. |
-| Concierge | Module lists, AI provider configuration, and AI usage report use `CrmDataTable`; local table and `shad-cn` implementations are removed. Lead Kanban uses the shared shell. Vue v0.7.8 is pinned; frozen-lockfile install, production build, and typecheck pass. |
+| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. CRM shell, Spending, and Wishimi layouts use shared `AdminShell`; headers, breadcrumbs, frames and list/settings components are shared. Vue v0.8.2 is pinned and locked; frozen-lockfile install, production build, typecheck, and local-sibling dev build pass. User-local phone-select change remains uncommitted. |
+| Concierge | Module lists, AI provider configuration, AI usage report, and lead Kanban use shared Vue components. The admin layout now uses `AdminShell`, shared sidebar primitives and `CrmBreadcrumbs`; nav data/account menu remain local. Vue v0.8.2 is pinned; frozen-lockfile install, production build, and typecheck pass. |
 | Spending | `packages/spending/src/shared/index.ts` directly reexports `CrmDataTable` from `@lepsios/vue`; users search/filter controls remain product-owned. Spending layout now uses shared `AdminShell`; interactive module forms and data stay in Spending. |
-| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell`, duplicate `MetricCard`, breadcrumb renderer, and OTP wrapper removed in both standalone and shell package. Both layouts use shared `AdminShell`/`CrmBreadcrumbs`; shell validation passes on Vue v0.8.1. |
-| Go Product CRM | Inquiries, commercial proposals, accounts, and FAQ use `CrmDataTable` in both canonical repo and shell copy. Account search/filtering, role/activation actions, responsive cards, FAQ publishing/status/actions stay product-owned. CRM shell uses shared `AdminShell`; production/dev builds and typecheck pass with Vue v0.8.1. |
-| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable; unused local pagination, clipboard, and utility files are removed. Vue v0.7.9 is pinned; frozen-lockfile install, production build, and typecheck pass. PhoneSelect imports from its Vue entry point (commit `47d2bc0`). Manual route smoke remains open. |
+| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell`, duplicate `MetricCard`, breadcrumb renderer, and OTP wrapper removed in both standalone and shell package. Both layouts use shared `AdminShell`/`CrmBreadcrumbs`; shell validation passes on Vue v0.8.2. |
+| Go Product CRM | Inquiries, commercial proposals, accounts, and FAQ use `CrmDataTable` in both canonical repo and shell copy. Account search/filtering, role/activation actions, responsive cards, FAQ publishing/status/actions stay product-owned. CRM shell uses shared `AdminShell`; production/dev builds and typecheck pass with Vue v0.8.2. |
+| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable. Admin layout now uses `AdminShell`, shared sidebar primitives/navigation, and `CrmBreadcrumbs`; Yarmarka keeps role/module-filtered navigation data and local theme/auth. Vue v0.8.2 is pinned; frozen-lockfile install, locale check, production build, and typecheck pass. PhoneSelect imports from its Vue entry point (commit `47d2bc0`). Manual route smoke remains open. |
 
-Adoption commits are in the respective consumer repositories; see each repository's commit history. A fresh Spending shell clone successfully vendored API Keys v0.1.2 from its pinned module ref and installed from the lockfile. No service deployment was performed.
+Adoption commits are in the respective consumer repositories; see each repository's commit history. The Spending shell pins Vue v0.8.2 and its module source ref; frozen-lockfile install, production build, and typecheck pass. No service deployment was performed.
 
 ## Feature module adoption
 
@@ -44,7 +44,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
   create, while owner scope, auth, error mapping, snippet headers, and post-revoke
   refresh policy stay host-owned. Both consumer pages now use the shared view and
   host adapters. Spending/Go Product adapter and view typecheck passes; the full
-  shell production build and typecheck pass with remote Vue v0.7.8. A fresh
+  shell production build and typecheck pass with remote Vue v0.8.2. A fresh
   shell clone fetched API Keys from its configured remote source ref and passed
   frozen-lockfile installation.
 
