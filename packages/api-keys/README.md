@@ -25,7 +25,7 @@ await apiKeys.refresh()
 
 ## Optional view
 
-`CrmApiKeysView` is exported from `@lepsios/crm-api-keys/component`. Pass a complete labels bag and `canManage`. Use its `connection` slot to render the product's endpoint and required headers from the one-time `issued` object.
+`CrmApiKeysView` is exported from `@lepsios/crm-api-keys/component`. Pass a complete labels bag and `canManage`. Use its `connection` slot to render the product's endpoint and required headers from the one-time `issued` object. `formatDate` can apply the host's locale formatting.
 
 ```vue
 <CrmApiKeysView :source="source" :labels="labels" :can-manage="canManage">

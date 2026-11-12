@@ -21,6 +21,8 @@ export interface CRMApiKeysSource {
 
 export interface CRMApiKeysLabels {
   label: string
+  keyId: string
+  actions: string
   status: string
   created: string
   lastUsed: string
