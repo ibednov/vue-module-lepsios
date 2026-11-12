@@ -11,7 +11,7 @@
     "./component": { "types": "./src/component.ts", "import": "./src/component.ts" }
   },
   "peerDependencies": {
-    "@lepsios/vue": "^0.4.0 || ^0.5.0",
+    "@lepsios/vue": "^0.4.0 || ^0.5.0 || ^0.6.0",
     "vue": "^3.5.0"
   }
 }
