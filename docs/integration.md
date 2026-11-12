@@ -11,6 +11,15 @@ composition.
 `go-lepsios/audit` model. Hosts own authentication, endpoint calls, permission
 checks, labels, and mapping from product DTOs.
 
+## API keys
+
+`@lepsios/crm-api-keys` provides a normalized list/create/revoke contract,
+state composable, and optional table/dialog view. Spending and Go Product both
+create a key with a label and receive its secret only in that create response.
+Their adapters retain different owner scopes, auth flows, endpoint URLs, error
+localization, and snippet headers. The list contract intentionally has no
+secret field.
+
 ## Installing nested packages before registry publication
 
 The repository root is not one of the CRM feature packages. Consumers list

@@ -1,0 +1,18 @@
+{
+  "name": "@lepsios/crm-api-keys",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reusable CRM API key contract, Vue state, and view",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "files": ["CHANGELOG.md", "README.md", "examples/", "src/"],
+  "exports": {
+    ".": { "types": "./src/index.ts", "import": "./src/index.ts" },
+    "./vue": { "types": "./src/use-crm-api-keys.ts", "import": "./src/use-crm-api-keys.ts" },
+    "./component": { "types": "./src/component.ts", "import": "./src/component.ts" }
+  },
+  "peerDependencies": {
+    "@lepsios/vue": "^0.5.0 || ^0.6.0",
+    "@tanstack/vue-table": "^8.21.3",
+    "vue": "^3.5.0"
+  }
+}
