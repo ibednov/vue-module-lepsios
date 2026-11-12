@@ -1,6 +1,6 @@
 {
   "name": "@lepsios/crm-ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Reusable CRM AI provider configs contract, Vue state, and providers view",
   "license": "PolyForm-Noncommercial-1.0.0",
@@ -11,7 +11,7 @@
     "./component": { "types": "./src/component.ts", "import": "./src/component.ts" }
   },
   "peerDependencies": {
-    "@lepsios/vue": "^0.4.0 || ^0.5.0 || ^0.6.0",
+    "@lepsios/vue": "^0.4.0 || ^0.5.0 || ^0.6.0 || ^0.7.0",
     "vue": "^3.5.0"
   }
 }
