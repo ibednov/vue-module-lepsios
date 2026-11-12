@@ -20,7 +20,7 @@ Inventory date: 2026-11-12.
 | G1 One page chrome | Integrated in Wishimi, Spending, Go Product, Concierge, and Yarmarka. Consumer production builds pass; manual route smoke remains unverified. |
 | G2 One table | Shared parity and all planned list migrations are committed, including Yarmarka's 15 lists and Concierge's remaining AI tables. The old-to-new props/emits/models/slots matrix is documented. Builds pass; clean typecheck and browser smoke remain open. |
 | G3 One UI primitive source | Complete: shell, Concierge, and Yarmarka local `shad-cn` trees removed; production builds pass. |
-| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; Yarmarka consumes them, and obsolete C/Y helper forks are removed. Local release tag exists; consumer pin awaits remote availability. |
+| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; the entity-navigation typing fix is in Vue 0.7.7. Yarmarka consumes the helpers, obsolete C/Y helper forks are removed, and consumer pin awaits remote availability. |
 | G5 Table/Kanban shell | Complete in Concierge and Go Product; `@lepsios/vue` v0.7.5 is tagged. |
 | G6 Feature module: API keys | Package 0.1.2 and Spending/Go Product adapters are committed; local package tag exists. Deployment pin is in the shell; remote clean-clone install awaits source availability. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
@@ -232,7 +232,7 @@ ui/dashboard/*, ui/animate/*     → defer unless second non-C/Y consumer needs 
 - [x] Priority helpers live in vue-lepsios and are exported (`CrmEntityNavigation`, `FieldTagsInput`, `runBulkAction`; shared pagination and clipboard utility already existed).
 - [x] Yarmarka imports the shared helpers; unused local pagination, clipboard, and utility files were removed. Concierge has no live entity/tags usages; its unused matching common/crypto/table/date/ui/bulk-action copies were removed.
 - [x] ConfirmActionDialog gone both sides.
-- [x] Vue version 0.7.6 + CHANGELOG and local `v0.7.6` tag.
+- [x] Vue version 0.7.6 + CHANGELOG and local `v0.7.6` tag; the entity-navigation type fix is in local `v0.7.7`.
 
 ### Steps
 
