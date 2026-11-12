@@ -8,6 +8,7 @@ Updated 2026-11-12. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go 
 
 | CRM | Adoption |
 | --- | --- |
+| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver now targets `@lepsios/vue/components/ui/*`. Production build passes with the local Vue source. The manifest remains pinned to released v0.7.4; local G5 primitives require the pending v0.7.5 release tag. |
 | Concierge | Team, contacts, applications, and leads use the shared table. Local table implementation removed. Lead Kanban remains product-owned. AI provider configuration and usage report tables remain product-specific. |
 | Spending | Existing Spending table wrapper delegates to the shared table and preserves its local import path and API, including the users search/filter toolbar. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell` removed. The package consumes `CrmDataTable` from `vue-lepsios`. |
@@ -36,7 +37,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 ## Remaining work
 
 1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. `@lepsios/vue` 0.7.4 is available from its remote release tag. The Spending shell and Wishimi peer ranges now target 0.7.x; Concierge and Yarmarka still need consumer adoption. Verify clean-clone installs and production builds after those integrations land.
+2. `@lepsios/vue` 0.7.4 is available from its remote release tag. The Spending shell and Wishimi peer ranges now target 0.7.x. G5 adds local 0.7.5 primitives, used through the local development symlink; v0.7.5 has no remote tag yet. Concierge and Yarmarka still need consumer adoption. Verify clean-clone installs and production builds after those integrations land and the required shared release is available.
 3. Verify consumer frozen installs and production builds from clean clones after their workspace lockfiles and pinned source tags are current; that work belongs to the consumer repositories.
 4. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
 5. Compare incoming-request workflows with concrete API operations before defining a module name or model.

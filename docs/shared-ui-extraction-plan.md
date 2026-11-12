@@ -18,10 +18,10 @@ Inventory date: 2026-11-12.
 | --- | --- |
 | G0 Context locked | reference |
 | G1 One page chrome | Wishimi + Spending/Go Product on Vue 0.7.4; Concierge/Yarmarka pending |
-| G2 One table | in progress; shared parity committed, Yarmarka migration underway |
-| G3 One UI primitive source | todo |
+| G2 One table | in progress; shared parity committed, Spending wrapper removed, Yarmarka migration local |
+| G3 One UI primitive source | Spending shell local tree removed; Concierge/Yarmarka pending |
 | G4 Shared helpers (C≡Y forks gone) | todo |
-| G5 Table/Kanban shell | todo |
+| G5 Table/Kanban shell | shared primitives and Go Product integration local; Concierge pending |
 | G6 Feature module: API keys | implementation complete locally; clean-clone pins pending |
 | G7 Later modules (gated) | blocked until API compare |
 
@@ -238,16 +238,16 @@ G2 confirm path; G3 makes imports consistent.
 
 ### DoD
 
-- [ ] `CrmViewToggle`: `modelValue: 'table' | 'kanban'`, label props.
-- [ ] `CrmKanbanBoard`: column/card slots only — **no** status API/drag policy required in v1.
-- [ ] Both host pages refactored; behavior preserved.
-- [ ] Exported + CHANGELOG.
+- [x] `CrmViewToggle`: `modelValue: 'table' | 'kanban'`, label props.
+- [x] `CrmKanbanBoard`: column/card slots only — **no** status API/drag policy required in v1.
+- [ ] Both host pages refactored; behavior preserved (Go Product complete; Concierge pending).
+- [x] Exported + CHANGELOG.
 
 ### Steps
 
-1. Add primitives in vue-lepsios.
+1. [x] Add primitives in vue-lepsios (local 0.7.5 commit; release tag pending).
 2. Wire Concierge `@leads/pages/index.vue`.
-3. Wire Go Product `commercial-proposals/pages/index.vue`.
+3. [x] Wire Go Product `commercial-proposals/pages/index.vue`.
 
 ### Depends on
 
