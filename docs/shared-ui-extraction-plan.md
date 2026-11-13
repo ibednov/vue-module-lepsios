@@ -49,7 +49,7 @@ Update this table as goals complete (version tags, PRs).
 | Go Product | `.../alexbednov-crm/packages/go-product` | Shared `AdminShell`, `AdminPageHeader`, `CrmDataTable` and UI primitives; audit/access feature modules. Product routes, adapters and actions stay local. |
 | Shell | `/Users/alepsios/dev/mine/spending/alexbednov-crm` | Shared @lepsios/vue shell/primitives/table with Spending and Go Product consumers. |
 | Concierge | `/Users/alepsios/dev/work/go-product/concierge/concierge-crm` | Shared Vue shell/primitives/table plus audit/team modules. |
-| Yarmarka | `/Users/alepsios/dev/work/go-product/yarmarka/yarmarka-crm` | Shared Vue v0.8.2 shell/primitives/table; product navigation, auth and domain behavior stay local. |
+| Yarmarka | `/Users/alepsios/dev/work/go-product/yarmarka/yarmarka-crm` | Shared Vue v0.8.3 shell/primitives/table; product navigation, auth and domain behavior stay local. |
 
 ### Pins
 
@@ -92,7 +92,7 @@ Update this table as goals complete (version tags, PRs).
 - [x] Root exports fixed for anything hosts deep-import today (`CrmTeamMembersView`, `CrmAccessControlView`, Admin*).
 - [x] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
 - [x] Spending/Go Product/Concierge/Yarmarka migrated list/settings screens use package chrome.
-- [x] `@lepsios/vue` version + CHANGELOG; Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept the shared v0.8.x API (consumer pins v0.8.2).
+- [x] `@lepsios/vue` version + CHANGELOG; Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept the shared v0.8.x API (consumer pins v0.8.3).
 - [ ] Manual authenticated route smoke: Wishimi `/wishimi/users/` + `/wishimi/audit/`; Concierge `/leads/` header. Requires the app and API with an authenticated browser session.
 
 ### Steps (order)
@@ -140,7 +140,7 @@ The shared package source and label/slot contract in `ui-contract.md`.
 - [x] Spending thin wrapper gone if 1:1.
 - [x] Wishimi/Concierge/Go Product remain on `CrmDataTable`; duplicated toolbar/helpers were adopted where applicable.
 - [x] `adoption-status.md`: Yarmarka table row updated.
-- [x] Build/typecheck green on Yarmarka + one other consumer. Yarmarka pins Vue v0.8.2; its frozen-lockfile install, production build, and typecheck pass.
+- [x] Build/typecheck green on Yarmarka + one other consumer. Yarmarka pins Vue v0.8.3; its frozen-lockfile install, production build, and typecheck pass.
 - [ ] Manual authenticated route smoke on Yarmarka `/clients/`, `/staff/`, and `/orders/`. No smoke was run: only Yarmarka Vite is available on port 6002; its API backend on 6001 and an authenticated browser/CDP session are unavailable. A login-wall/SPA-shell response is not sufficient evidence.
 
 ### Steps (order)
