@@ -63,7 +63,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 ## Remaining work
 
 1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. Manual route smoke remains open for Wishimi users/audit, one Concierge list, and Yarmarka clients/staff/another list.
+2. Manual authenticated route smoke remains open for Wishimi users/audit, one Concierge list, Yarmarka clients/staff/orders, and the API Keys screens in Spending and Go Product.
 3. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
 4. Compare incoming-request workflows with concrete API operations before defining a module name or model.
 
