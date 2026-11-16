@@ -32,7 +32,7 @@ Goal: close the crooks left after G1–G6. No new features. No FAQ/Conversations
 | F4 cosmetic leftovers | **done** |
 | F5 docs truth | **done** |
 | F6 verify | **done** — typecheck green shell + Concierge + Yarmarka on 0.8.4 |
-| F7 prod cutover push | **in progress** — vue-lepsios pushed; consumers/modules next |
+| F7 prod cutover push | **done** — vue-lepsios + tag, modules, shell, Concierge, Yarmarka pushed; shell `vite build` green |
 
 ## Remaining (non-blocking for pin cutover)
 
