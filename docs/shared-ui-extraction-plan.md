@@ -17,12 +17,12 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Wishimi (standalone + shell), Spending, CRM shell, Concierge, and Yarmarka use shared `AdminShell`; breadcrumb/frame/header/state components come from `@lepsios/vue` v0.8.3. Concierge `/leads/` was opened with an authenticated local session; Wishimi browser routes `/wishimi/users/` and `/wishimi/audit/` remain open. Wishimi local admin APIs returned 200. |
-| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the responsive cards slot and v0.8.3 hides the desktop table when cards render; typecheck and production/dev builds pass in CRM shell. Authenticated Yarmarka customer/staff/order APIs returned 200; browser list-route smoke remains open. |
+| G1 One page chrome | Wishimi (standalone + shell), Spending, CRM shell, Concierge, and Yarmarka use shared `AdminShell`; breadcrumb/frame/header/state components come from `@lepsios/vue` v0.8.3. Authenticated browser smoke passed on Wishimi `/wishimi/users/`, `/wishimi/audit/`, and Concierge `/leads/` on 2026-11-16. |
+| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the responsive cards slot and v0.8.3 hides the desktop table when cards render; typecheck and production/dev builds pass in CRM shell. Authenticated browser smoke passed on Yarmarka `/clients/`, `/staff/`, and `/orders/` on 2026-11-16. |
 | G3 One UI primitive source | Local `shad-cn` trees are removed from consumers; admin primitives resolve from `@lepsios/vue` v0.8.3 across all five CRMs. Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept Vue 0.8.x. |
 | G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Tags through v0.8.3 are pushed; Concierge and Yarmarka consume the shared helpers. |
 | G5 Table/Kanban shell | Shared table and Kanban shells are in `@lepsios/vue`; Go Product accounts/FAQ now use the shared table, including responsive account cards. Concierge uses the shared Kanban shell. |
-| G6 Feature module: API keys | API Keys v0.1.3 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone previously vendored API Keys from the configured module ref and passed frozen-lockfile install; shell install/build/typecheck pass on Vue v0.8.3. Go Product's authenticated API-key endpoint returned 200; browser route smoke remains open for both products. |
+| G6 Feature module: API keys | API Keys v0.1.3 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone previously vendored API Keys from the configured module ref and passed frozen-lockfile install; shell install/build/typecheck pass on Vue v0.8.3. Go Product API keys page passed authenticated browser smoke; Spending page renders in the CRM shell, but API-backed smoke remains open because its local API cannot be started without activating Telegram polling. |
 | G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
 
 Update this table as goals complete (version tags, PRs).
@@ -93,8 +93,7 @@ Update this table as goals complete (version tags, PRs).
 - [x] Wishimi deletes local PageHeader/PageFrame/StateBlock (and shell package copy).
 - [x] Spending/Go Product/Concierge/Yarmarka migrated list/settings screens use package chrome.
 - [x] `@lepsios/vue` version + CHANGELOG; Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept the shared v0.8.x API (consumer pins v0.8.3).
-- [x] Authenticated smoke: Concierge `/leads/` opened with the local owner session; Wishimi admin APIs for users and audit events returned 200 on 2026-11-16.
-- [ ] Manual authenticated browser route smoke: Wishimi `/wishimi/users/` + `/wishimi/audit/`.
+- [x] Manual authenticated browser route smoke: Wishimi `/wishimi/users/` + `/wishimi/audit/` and Concierge `/leads/` opened with local sessions on 2026-11-16.
 
 ### Steps (order)
 
@@ -142,8 +141,7 @@ The shared package source and label/slot contract in `ui-contract.md`.
 - [x] Wishimi/Concierge/Go Product remain on `CrmDataTable`; duplicated toolbar/helpers were adopted where applicable.
 - [x] `adoption-status.md`: Yarmarka table row updated.
 - [x] Build/typecheck green on Yarmarka + one other consumer. Yarmarka pins Vue v0.8.3; its frozen-lockfile install, production build, and typecheck pass.
-- [x] Authenticated API smoke on Yarmarka returned 200 for customers, staff, and orders on 2026-11-16.
-- [ ] Manual authenticated browser route smoke on Yarmarka `/clients/`, `/staff/`, and `/orders/`.
+- [x] Manual authenticated browser route smoke on Yarmarka `/clients/`, `/staff/`, and `/orders/`; list data and related APIs loaded on 2026-11-16.
 
 ### Steps (order)
 
@@ -294,7 +292,9 @@ Status enums, permissions, drag/drop policy, API operations, and card content.
 - [x] Labels bag for all strings; snippet via slot/prop (header names differ per product).
 - [x] Spending + Go Product pages use the shared view and host adapters.
 - [x] `adoption-status.md` + `integration.md` note.
-- [ ] Manual authenticated browser route smoke: API keys screen in Spending and Go Product; Go Product's authenticated `/api/v1/mcp/keys` API returned 200 on 2026-11-16.
+- [x] Manual authenticated browser route smoke: Go Product API keys page loaded its list and empty state; `/api/v1/mcp/keys` returned 200 on 2026-11-16.
+- [x] Spending `/spending/mcp-keys/` route mounted in the CRM shell and rendered its shared API-key form on 2026-11-16.
+- [ ] API-backed authenticated browser smoke: Spending API keys list/create/revoke. Its local API is not running; starting it activates Telegram polling. Production API health is 200, but no authenticated browser session is available there.
 
 ### Steps
 
