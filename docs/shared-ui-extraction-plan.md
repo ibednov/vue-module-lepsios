@@ -17,14 +17,14 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | **done** — all five CRMs use shared `AdminShell` + page/header/state from `@lepsios/vue`. Hosts pin `#v0.8.3`; local finish cut is **0.8.4** (ConfirmDialog props-only). Authenticated browser smoke: **not re-verified this pass** (see adoption-status Remaining). |
-| G2 One table | **done** — lists use `CrmDataTable` only (incl. Go Product accounts/FAQ). Cards slot since 0.8.0; hide desktop when cards since 0.8.3. Yarmarka smoke: **not re-verified this pass**. |
-| G3 One UI primitive source | **done** — no local `shad-cn` import trees. Theme token CSS (`shadcn.css`) kept. CLI `components.json` stubs removed in finish pass. Peers floor `^0.8.0`. |
+| G1 One page chrome | **done** — all five CRMs use shared `AdminShell` + page/header/state from `@lepsios/vue` **v0.8.4** (ConfirmDialog props-only). Authenticated browser smoke: **open** (see adoption-status). |
+| G2 One table | **done** — lists use `CrmDataTable` only (incl. Go Product accounts/FAQ). Cards slot since 0.8.0; hide desktop when cards since 0.8.3. Smoke: **open**. |
+| G3 One UI primitive source | **done** — no local `shad-cn` import trees. Theme token CSS (`shadcn.css`) kept. CLI `components.json` stubs removed. Peers floor `^0.8.0`. |
 | G4 Shared helpers (C≡Y forks gone) | **done** — entity nav, tags, bulk helper from 0.7.6+; C/Y locals for priority helpers gone. Deferred md/date/animate stay product-local by design. |
 | G5 Table/Kanban shell | **done** — `CrmViewToggle` + `CrmKanbanBoard` on Concierge leads and Go Product commercial-proposals. |
 | G6 Feature module: API keys | **done (UI)** — `@lepsios/crm-api-keys` 0.1.3 + Spending/Go Product adapters. **Open:** Spending API-backed list/create/revoke smoke (local API starts Telegram polling). |
 | G7 Later modules (gated) | **done (gate fail)** — [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); no FAQ/Conversations modules. |
-| F Finish crooks | **done except push** — tracker [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md): ConfirmDialog no i18n, drop `AdminDataTable` alias, peer floors, cosmetic leftovers. Tag `v0.8.4` local until owner pushes. |
+| F Finish crooks | **done + prod pin** — [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md): ConfirmDialog no i18n, no `AdminDataTable`, peers `^0.8.0`, hosts `#v0.8.4` pushed tag, typecheck green. |
 
 Update this table as goals complete (version tags, PRs).
 
