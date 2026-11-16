@@ -1,6 +1,8 @@
 # CRM UI reuse status
 
-Updated 2026-11-16 (finish pass). Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
+Updated 2026-11-16 (universal cutover). Package cut **0.8.6** (`c45e91e` / tag `v0.8.6`): `formatDateTimeBasedOnLocale` full Intl options; ConfirmDialog props-only; AdminPageHeader on C/Y detail. Hosts pin **github `#v0.8.6`**. Shell Dokploy deploy verified live `crm.alexbednov.dev` asset rotate after `78944fb`. Auth browser smoke still **open**.
+
+Prior note: Updated 2026-11-16 (finish pass). Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
 
 Finish tracker: [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md). Package cut **0.8.4** pushed (`df3e1fb` / tag `v0.8.4`): ConfirmDialog props-only labels; no `AdminDataTable` alias. Hosts pin **github `#v0.8.4`** (shell, Concierge, Yarmarka) with refreshed lockfiles. Product package peers floor **`^0.8.0`**.
 
@@ -69,7 +71,7 @@ Adoption commits are in the respective consumer repositories; see each repositor
 3. Optional later: strip `useI18n` from non-admin shared widgets (Datepicker/Timepicker/upload/file/carousel) the same way as ConfirmDialog.
 4. Add a Waify CRM consumer when its frontend exists and operator-team contract is known.
 5. Compare incoming-request workflows before any shared module name/model.
-6. Deploy host apps that consume the new pin (owner deploy pipelines).
+6. Deploy: shell `alexbednov-crm` + Concierge CRM redeployed via Dokploy for `#v0.8.6` (live asset hash rotated). Yarmarka CRM compose not registered in Dokploy project list — git pin only. Auth smoke still open.
 
 ## Verification and delivery
 

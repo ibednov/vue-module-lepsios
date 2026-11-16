@@ -10,7 +10,7 @@ Goal: close the crooks left after G1–G6. No new features. No FAQ/Conversations
 4. Cosmetic leftovers removed where safe: empty `data-table/` dirs, unused local spinner, `components.json` CLI stubs. **Keep `shadcn.css`** (theme tokens).
 5. Docs agree on smoke: open stays open unless re-smoked; no conflicting “passed vs open”.
 6. Wishimi / product package peers `^0.8.0` minimum.
-7. Hosts pin **pushed** `#v0.8.4`; typecheck green.
+7. Hosts pin **pushed** `#v0.8.6`; typecheck green.
 
 ## Out of scope (explicit)
 
@@ -26,9 +26,9 @@ Goal: close the crooks left after G1–G6. No new features. No FAQ/Conversations
 
 | Step | Status |
 | --- | --- |
-| F1 ConfirmDialog / i18n | **done** — `df3e1fb` / tag `v0.8.4` **pushed** |
+| F1 ConfirmDialog / i18n | **done** — `df3e1fb` / tag `v0.8.6` **pushed** |
 | F2 AdminDataTable + bump | **done** |
-| F3 peer floors + host pins | **done** — peers `^0.8.0`; shell/Concierge/Yarmarka `#v0.8.4` + lockfiles |
+| F3 peer floors + host pins | **done** — peers `^0.8.0`; shell/Concierge/Yarmarka `#v0.8.6` + lockfiles |
 | F4 cosmetic leftovers | **done** |
 | F5 docs truth | **done** |
 | F6 verify | **done** — typecheck green shell + Concierge + Yarmarka on 0.8.4 |
