@@ -2,6 +2,9 @@
 
 Дата сверки: 2026-10-25
 
+**Активный handoff по выносу UI + следующим модулям (2026-11-12):**  
+[`shared-ui-extraction-plan.md`](./shared-ui-extraction-plan.md) — **цели G1–G7** (chrome, table, shad-cn, helpers, kanban, api-keys), DoD и зависимости. Этот файл — исторический контекст первой волны.
+
 ## Назначение репозиториев
 
 - `vue-lepsios` — общие Vue UI-компоненты без продуктовых правил.

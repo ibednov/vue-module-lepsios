@@ -17,13 +17,14 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | Wishimi (standalone + shell), Spending, CRM shell, Concierge, and Yarmarka use shared `AdminShell`; breadcrumb/frame/header/state components come from `@lepsios/vue` v0.8.3. Authenticated browser smoke passed on Wishimi `/wishimi/users/`, `/wishimi/audit/`, and Concierge `/leads/` on 2026-11-16. |
-| G2 One table | All planned lists use `CrmDataTable`, including canonical and shell Go Product accounts/FAQ. Vue v0.8.0 adds the responsive cards slot and v0.8.3 hides the desktop table when cards render; typecheck and production/dev builds pass in CRM shell. Authenticated browser smoke passed on Yarmarka `/clients/`, `/staff/`, and `/orders/` on 2026-11-16. |
-| G3 One UI primitive source | Local `shad-cn` trees are removed from consumers; admin primitives resolve from `@lepsios/vue` v0.8.3 across all five CRMs. Wishimi, Spending/Go Product, Concierge, and Yarmarka pin or accept Vue 0.8.x. |
-| G4 Shared helpers (C≡Y forks gone) | Shared entity navigation, tags input, and bulk-action helper exported in Vue 0.7.6; follow-up type fixes are in Vue 0.7.7–v0.7.9. Tags through v0.8.3 are pushed; Concierge and Yarmarka consume the shared helpers. |
-| G5 Table/Kanban shell | Shared table and Kanban shells are in `@lepsios/vue`; Go Product accounts/FAQ now use the shared table, including responsive account cards. Concierge uses the shared Kanban shell. |
-| G6 Feature module: API keys | API Keys v0.1.3 tag and module commits are pushed; Spending/Go Product adapters are committed. A fresh Spending shell clone previously vendored API Keys from the configured module ref and passed frozen-lockfile install; shell install/build/typecheck pass on Vue v0.8.3. Go Product API keys page passed authenticated browser smoke; Spending page renders in the CRM shell, but API-backed smoke remains open because its local API cannot be started without activating Telegram polling. |
-| G7 Later modules (gated) | API/UX compare is in [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); FAQ and Conversations fail the extraction gates, so no module was started. |
+| G1 One page chrome | **done** — all five CRMs use shared `AdminShell` + page/header/state from `@lepsios/vue`. Hosts pin `#v0.8.3`; local finish cut is **0.8.4** (ConfirmDialog props-only). Authenticated browser smoke: **not re-verified this pass** (see adoption-status Remaining). |
+| G2 One table | **done** — lists use `CrmDataTable` only (incl. Go Product accounts/FAQ). Cards slot since 0.8.0; hide desktop when cards since 0.8.3. Yarmarka smoke: **not re-verified this pass**. |
+| G3 One UI primitive source | **done** — no local `shad-cn` import trees. Theme token CSS (`shadcn.css`) kept. CLI `components.json` stubs removed in finish pass. Peers floor `^0.8.0`. |
+| G4 Shared helpers (C≡Y forks gone) | **done** — entity nav, tags, bulk helper from 0.7.6+; C/Y locals for priority helpers gone. Deferred md/date/animate stay product-local by design. |
+| G5 Table/Kanban shell | **done** — `CrmViewToggle` + `CrmKanbanBoard` on Concierge leads and Go Product commercial-proposals. |
+| G6 Feature module: API keys | **done (UI)** — `@lepsios/crm-api-keys` 0.1.3 + Spending/Go Product adapters. **Open:** Spending API-backed list/create/revoke smoke (local API starts Telegram polling). |
+| G7 Later modules (gated) | **done (gate fail)** — [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); no FAQ/Conversations modules. |
+| F Finish crooks | **done except push** — tracker [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md): ConfirmDialog no i18n, drop `AdminDataTable` alias, peer floors, cosmetic leftovers. Tag `v0.8.4` local until owner pushes. |
 
 Update this table as goals complete (version tags, PRs).
 

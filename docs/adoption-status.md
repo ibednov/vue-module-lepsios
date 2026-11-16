@@ -1,6 +1,8 @@
 # CRM UI reuse status
 
-Updated 2026-11-13. Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
+Updated 2026-11-16 (finish pass). Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
+
+Finish tracker: [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md). Package cut **0.8.4** (ConfirmDialog props-only labels; no `AdminDataTable` alias). Hosts still lock **github `#v0.8.3`** until owner pushes `v0.8.4`; local Vite siblings already resolve `_shared/vue-lepsios`. Product package peers floor **`^0.8.0`**.
 
 ## Shared table
 
@@ -32,7 +34,7 @@ Compared the removed `src/components/ui/data-table/data-table.vue` and
 | Spending | `packages/spending/src/shared/index.ts` directly reexports `CrmDataTable` from `@lepsios/vue`; users search/filter controls remain product-owned. Spending layout now uses shared `AdminShell`; interactive module forms and data stay in Spending. |
 | Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell`, duplicate `MetricCard`, breadcrumb renderer, and OTP wrapper removed in both standalone and shell package. Both layouts use shared `AdminShell`/`CrmBreadcrumbs`; shell validation passes on Vue v0.8.3. |
 | Go Product CRM | Inquiries, commercial proposals, accounts, and FAQ use `CrmDataTable` in both canonical repo and shell copy. Account search/filtering, role/activation actions, responsive cards, FAQ publishing/status/actions stay product-owned. CRM shell uses shared `AdminShell`; production/dev builds and typecheck pass with Vue v0.8.3. |
-| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable. Admin layout now uses `AdminShell`, shared sidebar primitives/navigation, and `CrmBreadcrumbs`; Yarmarka keeps role/module-filtered navigation data and local theme/auth. Vue v0.8.3 is pinned; frozen-lockfile install, locale check, production build, and typecheck pass. PhoneSelect imports from its Vue entry point (commit `47d2bc0`). Manual route smoke remains open. |
+| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable. Admin layout uses `AdminShell`, shared sidebar primitives/navigation, and `CrmBreadcrumbs`; Yarmarka keeps role/module-filtered navigation data and local theme/auth. Vue `#v0.8.3` pin; peer floor elsewhere `^0.8.0`. CLI `components.json` removed. Manual authenticated route smoke **open** (not re-run in finish pass). |
 
 Adoption commits are in the respective consumer repositories; see each repository's commit history. The Spending shell pins Vue v0.8.3 and its module source ref; frozen-lockfile install, production build, and typecheck pass. No service deployment was performed.
 
@@ -62,10 +64,12 @@ Adoption commits are in the respective consumer repositories; see each repositor
 
 ## Remaining work
 
-1. The nested packages have semver manifests and changelogs but are not published. Before registry release, choose registry access policy and perform an authorized release.
-2. Manual authenticated route smoke remains open for Wishimi users/audit, one Concierge list, Yarmarka clients/staff/orders, and the API Keys screens in Spending and Go Product.
-3. Add a Waify CRM consumer when its frontend is created and its operator-team contract is known.
-4. Compare incoming-request workflows with concrete API operations before defining a module name or model.
+1. **Owner push** `vue-lepsios` commit/tag `v0.8.4`, then bump shell/Concierge/Yarmarka pins + lockfiles from `#v0.8.3` → `#v0.8.4`.
+2. Nested packages have semver manifests and changelogs but are not published (owner-only registry release).
+3. Manual authenticated route smoke **open**: Wishimi users/audit, Concierge list, Yarmarka clients/staff/orders, Go Product API keys (prior handoff claims not re-verified), Spending API keys list/create/revoke (local API starts Telegram polling).
+4. Optional later: strip `useI18n` from non-admin shared widgets (Datepicker/Timepicker/upload/file/carousel) the same way as ConfirmDialog.
+5. Add a Waify CRM consumer when its frontend exists and operator-team contract is known.
+6. Compare incoming-request workflows before any shared module name/model.
 
 ## Verification and delivery
 
