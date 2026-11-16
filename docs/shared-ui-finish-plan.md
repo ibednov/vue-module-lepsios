@@ -42,7 +42,7 @@ Goal: close crooks after G1–G6, then **prod chrome parity** (same shell/nav/ac
 | --- | --- |
 | F1 ConfirmDialog / i18n | **done** |
 | F2 AdminDataTable + bump | **done** |
-| F3 peer floors + host pins | **done** — current shell pin **`#v0.8.18`** |
+| F3 peer floors + host pins | **done** — current shell pin **`#v0.8.19`** |
 | F4 cosmetic leftovers | **done** |
 | F5 docs truth | **done** — adoption-status + this file + extraction status table |
 | F6 verify | **done** typecheck on pin cuts; live smoke still open |

@@ -17,14 +17,14 @@ Inventory date: 2026-11-12.
 | Goal | Status |
 | --- | --- |
 | G0 Context locked | reference |
-| G1 One page chrome | **done + prod parity** — `AdminShell` + `CrmBreadcrumbs` + `CrmNavHub` + **`CrmSidebarAccount`** (lang/theme labeled) on consumers; pin **`#v0.8.18`**. 3-level nav (Wishimi/Spending) + hub cards. Smoke: **open**. |
+| G1 One page chrome | **done + prod parity** — `AdminShell` + `CrmBreadcrumbs` + `CrmNavHub` + **`CrmSidebarAccount`** (lang/theme labeled) on consumers; pin **`#v0.8.19`**. 3-level nav (Wishimi/Spending) + hub cards. Smoke: **open**. |
 | G2 One table | **done + bulk path** — `CrmDataTable` only; host `selectedIds` + `bulk-actions`; **modelValue** checkboxes; `clearSelection` emit (0.8.18). title-suggestions multi-actions fixed. Smoke: **open**. |
 | G3 One UI primitive source | **done** — no local `shad-cn` import trees. Theme token CSS (`shadcn.css`) kept. CLI `components.json` stubs removed. Peers floor `^0.8.0`. |
 | G4 Shared helpers (C≡Y forks gone) | **done** — entity nav, tags, bulk helper from 0.7.6+; C/Y locals for priority helpers gone. Deferred md/date/animate stay product-local by design. |
 | G5 Table/Kanban shell | **done** — `CrmViewToggle` + `CrmKanbanBoard` on Concierge leads and Go Product commercial-proposals. |
 | G6 Feature module: API keys | **done (UI)** — `@lepsios/crm-api-keys` 0.1.3 + Spending/Go Product adapters. **Open:** Spending API-backed list/create/revoke smoke (local API starts Telegram polling). |
 | G7 Later modules (gated) | **done (gate fail)** — [`g7-api-ux-compare.md`](./g7-api-ux-compare.md); no FAQ/Conversations modules. |
-| F Finish crooks | **done + prod pin** — [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md) F1–F7 + **C1–C6** chrome/IA/bulk; shell `#v0.8.18`. |
+| F Finish crooks | **done + prod pin** — [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md) F1–F7 + **C1–C6** chrome/IA/bulk; shell `#v0.8.19`. |
 
 Update this table as goals complete (version tags, PRs).
 

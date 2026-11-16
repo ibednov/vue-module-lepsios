@@ -1,6 +1,6 @@
 # CRM UI reuse status
 
-Updated **2026-11-16** (prod chrome + bulk). Canonical pin: **`@lepsios/vue` github `#v0.8.18`**.
+Updated **2026-11-16** (prod chrome + bulk). Canonical pin: **`@lepsios/vue` github `#v0.8.19`**.
 
 North star: every CRM admin chrome/table/confirm comes from `@lepsios/vue` / `@lepsios/crm-*`; hosts keep domain, API, auth, i18n, routes. Wishimi UX parity on live was the first bar; all admins unified to the same shell patterns.
 
@@ -10,13 +10,14 @@ Finish tracker: [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md). Extrac
 
 | Tag | Why |
 | --- | --- |
-| **0.8.18** | `CrmDataTable` emits `clearSelection` when host owns `selectedIds` |
+| **0.8.19** | `CrmDataTable` contain long cell content |
+| 0.8.18 | `CrmDataTable` emits `clearSelection` when host owns `selectedIds` |
 | 0.8.17 | `CrmSidebarAccount` labeled lang/theme menu items |
 | 0.8.16 | `section.links` 2-level breadcrumbs |
 | 0.8.15 | `CrmNavHub` section/module landing cards |
 | 0.8.x earlier | `CrmSidebarAccount`, ConfirmDialog props-only, no `AdminDataTable`, peers `^0.8.0` |
 
-Shell `alexbednov-crm` pins **`#v0.8.18`**. Dokploy compose deploy used for Spending/Wishimi shell after nav + bulk fixes. Authenticated full-route smoke still **open** (login wall in agent browser).
+Shell `alexbednov-crm` pins **`#v0.8.19`**. Dokploy compose deploy used for Spending/Wishimi shell after nav + bulk fixes. Authenticated full-route smoke still **open** (login wall in agent browser).
 
 ## Shared table
 
@@ -36,7 +37,7 @@ Yarmarka old `DataTable` → shared matrix unchanged (see earlier rows in git hi
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Shared `AdminShell`, headers, breadcrumbs, frames, UI from `@lepsios/vue`. Local shad-cn gone. Pin **#v0.8.18**. |
+| Spending shell (`alexbednov-crm`) | Shared `AdminShell`, headers, breadcrumbs, frames, UI from `@lepsios/vue`. Local shad-cn gone. Pin **#v0.8.19**. |
 | Spending product | Lists via `CrmDataTable`; layout `AdminShell`. **3-level nav** (platform / system / account). Bulk on title-suggestions wired. |
 | Wishimi | Shared shell + table; 3-level admin nav + hubs; account footer identity from host session. |
 | Concierge | Shared shell/sidebar/breadcrumbs; lists + Kanban shared. |
