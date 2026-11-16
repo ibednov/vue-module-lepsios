@@ -1,41 +1,57 @@
 # Finish plan: shared UI extraction to done
 
-Goal: close the crooks left after G1–G6. No new features. No FAQ/Conversations modules. No npm publish.
+Goal: close crooks after G1–G6, then **prod chrome parity** (same shell/nav/account/table behavior live). No new product features. No FAQ/Conversations. No npm publish without owner.
 
 ## Done when
 
-1. `@lepsios/vue` CRM path does not call `t()` / `useI18n` on ConfirmDialog (admin/* already clean).
-2. Misleading export `AdminDataTable` removed.
-3. Consumer peers for `@lepsios/vue` floor at `^0.8.0` (no `^0.5`).
-4. Cosmetic leftovers removed where safe: empty `data-table/` dirs, unused local spinner, `components.json` CLI stubs. **Keep `shadcn.css`** (theme tokens).
-5. Docs agree on smoke: open stays open unless re-smoked; no conflicting “passed vs open”.
-6. Wishimi / product package peers `^0.8.0` minimum.
-7. Hosts pin **pushed** `#v0.8.6`; typecheck green.
+### Package / pin (F1–F7)
+
+1. `@lepsios/vue` CRM path: ConfirmDialog props-only (no `t()` / `useI18n`).
+2. No misleading `AdminDataTable` export.
+3. Consumer peers floor `^0.8.0` (no `^0.5`).
+4. Cosmetics cleaned where safe; **keep `shadcn.css`**.
+5. Docs agree: smoke open stays open unless re-smoked.
+6. Hosts pin **pushed** github tags; typecheck green on touched apps.
+7. Prod shell deploy when owner says push/deploy.
+
+### Prod chrome parity (C1–C6) — closed 2026-11-16
+
+| ID | Criterion | Status |
+| --- | --- | --- |
+| C1 | One sidebar footer: `CrmSidebarAccount` (identity + labeled lang/theme + logout + optional `#menu`) | **done** (0.8.17) |
+| C2 | Header = breadcrumbs + expand; no duplicate lang/theme in header | **done** |
+| C3 | Clickable 3-level nav + section/module **hubs** (`CrmNavHub`) | **done** (0.8.15–0.16) |
+| C4 | Wishimi + Spending true **section → module → leaf** (not 2-level flatten) | **done** |
+| C5 | Spending IA splits: Audit ≠ Access; title-suggestions under Platform **Контент**; settings = flags/MCP/AI | **done** |
+| C6 | One bulk path: host `selectedIds` + `bulk-actions`; checkboxes **modelValue**; clear emits `clearSelection` | **done** (0.8.18 + title-suggestions fix) |
 
 ## Out of scope (explicit)
 
-- Yarmarka deferred local ui-* (md/date/field/animate) until 2nd consumer.
-- Concierge detail `[id]` custom headers (product chrome, not list chrome DoD).
-- Spending API-backed keys smoke (API start forces Telegram poll).
-- God-table split, triple empty merge, dual Admin/Crm naming beyond dangerous alias.
+- Yarmarka deferred local ui-* until 2nd consumer.
+- Concierge detail custom headers.
+- Spending API-backed keys smoke (Telegram poll on API start).
+- God-table split / dual Admin-Crm naming beyond alias removal.
 - G7 modules, registry publish, Waify.
-- Non-admin `useI18n` in Datepicker/Timepicker/upload/file/carousel (not CRM list path; separate pass).
-- Authenticated browser smoke re-run (stays open until owner sessions).
+- Non-admin Datepicker/Timepicker i18n strip (separate pass).
+- Full authenticated browser smoke until owner sessions.
+- Forcing notifications into every product footer (Spending `#menu` only).
 
 ## Status
 
 | Step | Status |
 | --- | --- |
-| F1 ConfirmDialog / i18n | **done** — `df3e1fb` / tag `v0.8.6` **pushed** |
+| F1 ConfirmDialog / i18n | **done** |
 | F2 AdminDataTable + bump | **done** |
-| F3 peer floors + host pins | **done** — peers `^0.8.0`; shell/Concierge/Yarmarka `#v0.8.6` + lockfiles |
+| F3 peer floors + host pins | **done** — current shell pin **`#v0.8.18`** |
 | F4 cosmetic leftovers | **done** |
-| F5 docs truth | **done** |
-| F6 verify | **done** — typecheck green shell + Concierge + Yarmarka on 0.8.4 |
-| F7 prod cutover push | **done** — vue-lepsios + tag, modules, shell, Concierge, Yarmarka pushed; shell `vite build` green |
+| F5 docs truth | **done** — adoption-status + this file + extraction status table |
+| F6 verify | **done** typecheck on pin cuts; live smoke still open |
+| F7 prod cutover push | **done** tags + shell deploys as requested |
+| C1–C6 chrome/bulk parity | **done** — see table above |
 
-## Remaining (non-blocking for pin cutover)
+## Remaining (non-blocking)
 
-1. Authenticated browser smoke still **open** (Wishimi users/audit, Concierge list, Yarmarka clients/staff/orders, API keys).
-2. Spending API-backed keys smoke blocked on Telegram polling.
-3. Optional: strip `useI18n` from non-admin shared widgets.
+1. Authenticated browser smoke still **open**.
+2. Spending API keys smoke blocked on Telegram polling.
+3. Optional non-admin `useI18n` strip.
+4. Optional «Контент» label rename.

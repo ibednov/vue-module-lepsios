@@ -1,83 +1,88 @@
 # CRM UI reuse status
 
-Updated 2026-11-16 (universal cutover). Package cut **0.8.6** (`c45e91e` / tag `v0.8.6`): `formatDateTimeBasedOnLocale` full Intl options; ConfirmDialog props-only; AdminPageHeader on C/Y detail. Hosts pin **github `#v0.8.6`**. Shell Dokploy deploy verified live `crm.alexbednov.dev` asset rotate after `78944fb`. Auth browser smoke still **open**.
+Updated **2026-11-16** (prod chrome + bulk). Canonical pin: **`@lepsios/vue` github `#v0.8.18`**.
 
-Prior note: Updated 2026-11-16 (finish pass). Scope includes Concierge CRM, Spending CRM, Wishimi CRM, Go Product CRM, and Yarmarka CRM. `edu-markdown-test` remains a reference only. Yarmarka is included for shared UI identity; its business modules stay product-owned.
+North star: every CRM admin chrome/table/confirm comes from `@lepsios/vue` / `@lepsios/crm-*`; hosts keep domain, API, auth, i18n, routes. Wishimi UX parity on live was the first bar; all admins unified to the same shell patterns.
 
-Finish tracker: [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md). Package cut **0.8.4** pushed (`df3e1fb` / tag `v0.8.4`): ConfirmDialog props-only labels; no `AdminDataTable` alias. Hosts pin **github `#v0.8.4`** (shell, Concierge, Yarmarka) with refreshed lockfiles. Product package peers floor **`^0.8.0`**.
+Finish tracker: [`shared-ui-finish-plan.md`](./shared-ui-finish-plan.md). Extraction goals: [`shared-ui-extraction-plan.md`](./shared-ui-extraction-plan.md).
+
+## Package cuts (recent)
+
+| Tag | Why |
+| --- | --- |
+| **0.8.18** | `CrmDataTable` emits `clearSelection` when host owns `selectedIds` |
+| 0.8.17 | `CrmSidebarAccount` labeled lang/theme menu items |
+| 0.8.16 | `section.links` 2-level breadcrumbs |
+| 0.8.15 | `CrmNavHub` section/module landing cards |
+| 0.8.x earlier | `CrmSidebarAccount`, ConfirmDialog props-only, no `AdminDataTable`, peers `^0.8.0` |
+
+Shell `alexbednov-crm` pins **`#v0.8.18`**. Dokploy compose deploy used for Spending/Wishimi shell after nav + bulk fixes. Authenticated full-route smoke still **open** (login wall in agent browser).
 
 ## Shared table
 
-`@lepsios/vue` is the canonical admin UI package: shells, headers, breadcrumbs, frames, state blocks, UI primitives, tables, and reusable visual components come from this package. Product screens keep their API calls, search/filter state, permissions, translations, columns, and domain actions; server pagination stays in each host. `@lepsios/crm-*` packages are optional domain feature modules, not competing UI kits.
+`CrmDataTable` is the only list table. Hosts own search/filter, columns, permissions, bulk **domain** handlers. Shared owns selection chrome when wired correctly:
 
-### Yarmarka table API migration matrix
+| Host concern | Shared API |
+| --- | --- |
+| Selection IDs | `:selected-ids` + host `ref<string[]>` |
+| Bulk bar + confirm | `:bulk-actions` (`CrmBulkAction`), `@bulk-action` |
+| Count / clear labels | `:selected-count-label`, `:clear-selection-label`, `@clear-selection` |
+| Row checkboxes | **reka `modelValue` / `update:modelValue` only** — `checked` looks toggled but never writes host ids (title-suggestions bug) |
+| Toolbar extras | `#toolbar` slot |
 
-Compared the removed `src/components/ui/data-table/data-table.vue` and
-`data-table-types.ts` with `CrmDataTable` in `vue-lepsios`.
+Reference hosts: go-product commercial-proposals; Spending title-suggestions (fixed 2026-11-16).
 
-| Old Yarmarka API | Shared API | Migration |
-| --- | --- | --- |
-| Props: `columns`, `data` | Props: `columns`, `data` | Direct |
-| `searchKey`, `searchPlaceholder`, `globalSearch`, `serverSearch`; `v-model:search`; `searchChange` | `#toolbar` slot; host-owned query state | Product search controls stay in each page; server/client filtering remains host-owned |
-| `isFilterable`, `filterData`, `isFilterOptionDefault`; `filterValue`, `filterValues`; `filterChange` | `#toolbar` slot | Hosts render the filters and own their state/query mapping |
-| `hidePagination` | `hidePagination` | Direct |
-| `selectable`, `rowIdKey`; `v-model:rowSelection` | `selectedIds`, `getRowId`; `v-model:rowSelection`; `createSelectColumn` | Column selection and ID mapping use shared API |
-| `DataTableBulkAction { label, icon?, variant?, onClick(ids) }` | `CrmBulkAction { key, label, variant?, confirmTitle?, confirmDescription?, confirmLabel?, cancelLabel? }`; `bulkAction({ key, ids })` | Host maps the stable action key to its operation; optional confirmation is shared |
-| `labels: DataTableLabels` bag | `emptyText`, `loadingText`, `retryLabel`, `previousLabel`, `nextLabel`, `bulkActionsLabel`, selection and pagination label props | Host labels are passed as individual props/callbacks |
-| `rowClickable`; `rowClick(row)` | `rowClick({ event, row })` | Shared component skips interactive controls; host reads the row from payload |
-| `loading`, `errorMessage`; `retry` | `loading`, `error`, `retryLabel`; `retry` | Error remains distinct from empty state |
-| No public content slots | `#toolbar`, `#error`, `#empty`, `#cell:<columnId>` | Additive host composition points |
-| No pagination metadata model | `meta: PaginationMeta`; `pageChange(page)` | Host maps API pagination to shared metadata |
+Yarmarka old `DataTable` → shared matrix unchanged (see earlier rows in git history / finish plan). Peers floor **`^0.8.0`**.
 
 | CRM | Adoption |
 | --- | --- |
-| Spending shell (`alexbednov-crm`) | Local `src/components/shad-cn` tree removed; the shell auto-import resolver targets `@lepsios/vue/components/ui/*`. CRM shell, Spending, and Wishimi layouts use shared `AdminShell`; headers, breadcrumbs, frames and list/settings components are shared. Vue v0.8.3 is pinned and locked; frozen-lockfile install, production build, typecheck, and local-sibling dev build pass. User-local phone-select change remains uncommitted. |
-| Concierge | Module lists, AI provider configuration, AI usage report, and lead Kanban use shared Vue components. The admin layout now uses `AdminShell`, shared sidebar primitives and `CrmBreadcrumbs`; nav data/account menu remain local. Vue v0.8.3 is pinned; frozen-lockfile install, production build, and typecheck pass. |
-| Spending | `packages/spending/src/shared/index.ts` directly reexports `CrmDataTable` from `@lepsios/vue`; users search/filter controls remain product-owned. Spending layout now uses shared `AdminShell`; interactive module forms and data stay in Spending. |
-| Wishimi | Users, audit, versions, messages, monitoring, and subscription plans use the shared table. Local `TableShell`, duplicate `MetricCard`, breadcrumb renderer, and OTP wrapper removed in both standalone and shell package. Both layouts use shared `AdminShell`/`CrmBreadcrumbs`; shell validation passes on Vue v0.8.3. |
-| Go Product CRM | Inquiries, commercial proposals, accounts, and FAQ use `CrmDataTable` in both canonical repo and shell copy. Account search/filtering, role/activation actions, responsive cards, FAQ publishing/status/actions stay product-owned. CRM shell uses shared `AdminShell`; production/dev builds and typecheck pass with Vue v0.8.3. |
-| Yarmarka | All 15 module list pages use `CrmDataTable`; local table and `shad-cn` trees are removed. All 40 module roots use `AdminPage`, and 16 list headers use `AdminPageHeader`. Shared confirm, entity navigation, tags input, and bulk-action helpers are used where applicable. Admin layout uses `AdminShell`, shared sidebar primitives/navigation, and `CrmBreadcrumbs`; Yarmarka keeps role/module-filtered navigation data and local theme/auth. Vue `#v0.8.4` pin + lockfile; typecheck green. CLI `components.json` removed. Manual authenticated route smoke **open**. |
+| Spending shell (`alexbednov-crm`) | Shared `AdminShell`, headers, breadcrumbs, frames, UI from `@lepsios/vue`. Local shad-cn gone. Pin **#v0.8.18**. |
+| Spending product | Lists via `CrmDataTable`; layout `AdminShell`. **3-level nav** (platform / system / account). Bulk on title-suggestions wired. |
+| Wishimi | Shared shell + table; 3-level admin nav + hubs; account footer identity from host session. |
+| Concierge | Shared shell/sidebar/breadcrumbs; lists + Kanban shared. |
+| Go Product | Shared shell + `CrmDataTable` (incl. bulk reference). |
+| Yarmarka | Shared table + AdminPage chrome; deferred local ui-* until 2nd consumer. |
+| tea-find | Shell consumer; list quality cutover noted in shell docs. |
 
-Adoption commits are in the respective consumer repositories; see each repository's commit history. Hosts pin Vue **v0.8.4**; frozen-lockfile install and typecheck pass on shell/Concierge/Yarmarka. No service deployment was performed in this cutover.
+## Admin chrome parity (prod)
 
-## Feature module adoption
+One pattern across products:
 
-- **`@lepsios/crm-api-keys` 0.1.3** (remote tag `api-keys-v0.1.3`): the normalized list/create/revoke contract,
-  state composable, and optional view live under `packages/api-keys`. Spending
-  and Go Product APIs were compared: both return the one-time secret only on
-  create, while owner scope, auth, error mapping, snippet headers, and post-revoke
-  refresh policy stay host-owned. Both consumer pages now use the shared view and
-  host adapters. Spending/Go Product adapter and view typecheck passes; the full
-  shell production build and typecheck pass with remote Vue v0.8.3. A fresh
-  shell clone fetched API Keys from its configured remote source ref and passed
-  frozen-lockfile installation.
+| Piece | Shared | Host |
+| --- | --- | --- |
+| Shell + wide toggle | `AdminShell` | open/wide state |
+| Breadcrumbs (clickable, hub-aware) | `CrmBreadcrumbs` + `buildCrmNavBreadcrumbs` | items from same nav tree |
+| Nav hubs | `CrmNavHub`, `resolveCrmNavHub`, `crmNavHubPath` | provide sections; hub route |
+| Sidebar footer | **`CrmSidebarAccount` only** | title/subtitle/initials, lang/theme labels, logout, optional `#menu` |
+| Lang / theme | footer appearance block (0.8.17+) | handlers + labels; no second header controls |
+| Powered by | props on account footer | optional |
+| Notifications | — | Spending only via `#menu` → profile route |
 
-- **G7 compare:** `g7-api-ux-compare.md` records that Go Product FAQ publishing
-  and Concierge FAQ suggestion moderation have different data and operations.
-  Concierge operator conversations and Yarmarka customer chat also have
-  different list and thread actions. Neither candidate passes the extraction
-  gate, so no FAQ or Conversations package was started.
+### Nav IA rules (owner)
 
-- **`@lepsios/crm-audit-log` 0.5.10**: the normalized audit DTO, query/page contract, injectable source, and shared view live under `packages/audit-log`. Concierge, Spending, Wishimi, and Go Product CRM use the shared view. Hosts own authentication, permission checks, route registration, and API mapping. Existing backend endpoints match the `go-lepsios/audit` response DTO. The package accepts `@lepsios/vue` 0.4.x–0.8.x.
-- **`@lepsios/crm-team-members` 0.1.1**: the normalized read-only roster contract and source composable live under `packages/team-members`; the generic view lives in `vue-lepsios`. Concierge and Spending map their operator lists in host-owned adapters. Create, invite, role editing, and removal remain product-specific. The shared view searches and paginates the loaded list locally; only use it when the host list operation returns the complete roster. Wishimi users and Go Product customer accounts are end users, outside this operator-team module.
-- **`@lepsios/crm-access-control` 0.1.2**: the role/permission catalog contract and source composable live under `packages/access-control`; the generic view lives in `vue-lepsios`. Spending and Go Product CRM map their read-only catalogs in host-owned adapters. Authorization enforcement and role mutation remain host-owned. Concierge exposes an enum role hierarchy but no matching permission catalog, so it is outside this module.
-- **`@lepsios/crm-ai` 0.1.2**: provider configuration contract and shared view remain host-source driven. Its Vue peer range includes 0.8.x, matching Spending shell's shared UI pin.
-- **Incoming customer requests**: remain unnamed and unimplemented until the business process is compared across the four products. Do not use `inquiries` by default or merge Concierge lead qualification with application conversion.
+- **3-level default:** section → module (former group) → leaf. Do not collapse to 2-level “section = former group + bare leaves”.
+- **Single-leaf modules OK** (e.g. Spending **Аудит** alone under System).
+- Split crowded modules by *job*, not by URL count:
+  - Spending **Доступ** = staff · roles · permissions (not audit).
+  - Spending **Аудит** = journal only.
+  - Spending **Контент** (platform) = title-suggestions (not system settings).
+  - Spending **Настройки системы** = flags · MCP · AI only.
+- Leaf rows in shell maps need `array: []` (or walkers use `?? []`) — missing `array` blanked the whole Spending sidebar once.
+- Hub cards for section/module clicks; leaves stay real screens.
 
-## Remaining work
+## Feature modules
 
-1. Nested packages have semver manifests and changelogs but are not published (owner-only registry release / npm publish).
-2. Manual authenticated route smoke **open**: Wishimi users/audit, Concierge list, Yarmarka clients/staff/orders, Go Product API keys, Spending API keys list/create/revoke (local Spending API starts Telegram polling).
-3. Optional later: strip `useI18n` from non-admin shared widgets (Datepicker/Timepicker/upload/file/carousel) the same way as ConfirmDialog.
-4. Add a Waify CRM consumer when its frontend exists and operator-team contract is known.
-5. Compare incoming-request workflows before any shared module name/model.
-6. Deploy: shell `alexbednov-crm` + Concierge CRM redeployed via Dokploy for `#v0.8.6` (live asset hash rotated). Yarmarka CRM compose not registered in Dokploy project list — git pin only. Auth smoke still open.
+Unchanged gate: no FAQ/Conversations (`g7-api-ux-compare.md`). API keys / audit-log / team-members / access-control / AI packages as before; hosts pin Vue 0.8.x peer range.
 
-## Verification and delivery
+## Remaining
 
-The adoption matrix above records confirmed module consumers. The audit
-response shape was checked against Concierge API, Spending API, Wishimi backend,
-and Go Product site-api. Team-members and access-control are read-only frontend
-contracts and require no new backend endpoints. Consumer pins, frozen installs,
-and production builds have been verified in their owning repositories. Packages
-remain unpublished to a registry; no service deployment was performed.
+1. Nested packages unpublished (owner-only npm).
+2. Authenticated browser smoke **open** (Wishimi, Concierge, Yarmarka, keys, full bulk click-path).
+3. Optional: non-admin `useI18n` strip on Datepicker/etc.
+4. Waify CRM when frontend exists.
+5. Incoming-request shared module still gated on cross-product process compare.
+6. Optional rename Spending module label «Контент» if owner prefers another word for suggestions.
+
+## Verification
+
+Pins + lockfiles in owning repos. Shell Dokploy deploy after nav/bulk commits. Live bulk bar depends on hard-refresh post-deploy; root cause was host checkbox binding, not missing shared code.
